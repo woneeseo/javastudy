@@ -1,0 +1,139 @@
+<오늘 할 일>
+
+1. jdk (java development kit / 자바 개발환경) 설치 
+
+https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html
+
+자바 db연동할 때 오라클 계정 필요함 (hon0760@naver.com/Audtnr90@)
+cmd 에서 java -version 을 입력해서 자바가 설치 잘 되었는지 확인할 것
+java version "1.8.0_261" 라는 메세지가 뜨면 ok
+
+jdk 다운로드 후 환경설정을 해 줄 필요가 있다고 하지만
+eclipse를 주로 사용할 것이기 때문에 cmd에서 따로 환경설정 할 필요는 없다.
+
+jvm (java vertual machine) - 어떤 환경에서든 실행되게 하는 모듈 
+(그래서 안드로이드 운영체제가 무거움)
+jdk se (java development kit standard edition) - 기본 edition 
+jdk ee (enterprise edition) - 웹개발용 => 이클립스 ee version에서 커버 가능
+
+2. ide : eclipse 다운로드
+
+https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2020-09/R/eclipse-inst-jre-win64.exe
+
+install 화면에서 반드시 eclipse의 ee version을 다운받을 것
+(jdk에서 부족한 기능을 사용하기 위해서 ee version이 필요하다)
+
+
+3. 자바 프로젝트를 저장할 수 있는 공간을 생성
+   - workspace_java (새폴더 만들기)
+
+launch 
+
+launch 화면에서 실행 안될 때 : 에러메세지 복사해서 구글링~
+
+4. eclipse의 구조 살펴보기
+
+window -> show view -> other -> package explorer 로 설정
+화면이 편집창만 남아있을 때 
+window -> show view에서 하나씩 띄워줘도 되고,
+window -> new window 새창 띄우고 기존 초기화된 창은 지우기
+
+java ee 는 웹프로그래밍 할 때 사용
+java se 레이아웃으로 사용할 것임
+perspctive를 자바 se로 바꾸려면? 오른쪽 위 java ee 옆 +메뉴를 눌러서 java를 클릭해줌
+만약 perspective 아이콘이 없을 때, window -> perspective 
+se버전이 ee보다 메뉴가 더 간결함 & 초기에 설정된 explorer가 package로 기본 설정 되어있음
+
+<프로젝트 만들기>
+
+file -> new -> java project 
+또는
+ctrl+n ->java ->java project
+
+HelloWorld (띄어쓰기x 띄어쓰기 해야 할 단어의 첫글자는 대문자로*) 라는 프로젝트 생성
+jre -> javase 1.8 버전으로 꼭 바꿔서 만들어주기 (사용하는 jdk의 버전에 맞게 선택해야함)
+
+프로젝트를 삭제할 때는 delete키로 삭제 (이클립스 목록에서만 없어짐/ workspace에는 존재)
+delete키를 누르고 체크박스에 체크한 뒤 삭제하면 workspace의 데이터도 삭제됨
+
+
+5. 콘솔에 "hello world(문자열)" 출력
+console 결과값을 표시해주는 창 
+comsole창은 결과값이 나오면 자동으로 출력되므로 수동으로 열어줄 필요가 적음
+강제로 열어야 할 때는 window -> show view -> console 
+
+<문자열 출력하기>
+
+package exploere 의 HelloWorld를 더블클릭 -> src에서 작업
+ctrl+n -> package 
+package는 폴더 개념이라고 생각하면 됨 
+(일반적으로는 폴더이름은 어떠한 회사의 도메인을 적는다)
+
+도메인 ex lg.co.kr 의 경우 패키지네임에 lg.co.kr을 입력하게 되면 
+동일한 데이터들이 많이 생성되기 때문에, kr.co.lg 같이 역순으로 입력해 데이터를 최소화
+(workspace에는 lg폴더->co폴더->kr폴더 순으로 생성되기 때문에)
+
+작업할 workspace를 선택하고 crtl+n -> class (일종의 설계도) 
+-> MainEx 생성 (Main method를 가지고 있기 때문에)
+
+중괄호 안에서 엔터
+public static void main(String[] args) {
+	System.out.println("hello world");
+      }
+ln (출력 후 줄바꿈)
+
+저장 ctrl+s (현재 클래스만 저장) / ctrl+shift+s (열려있는 클래스 전부 저장)
+console에 호출해보기 -> 프로젝트에서 오른쪽 클릭 ->run as ->java application
+
+
+
+- 이클립스의 우측 상단의 open perspective를 클릭하여 java prespective 선택
+또는
+- crtl+n 누른 후 자바 프로젝트 생성
+프로젝트 명은 첫 글자 대문자, 띄어쓰기 하지 말고 띄어쓰는 단어 첫글자에 대문자 
+- crtl+n 을 누른 후 package 생성
+- 패키지는 전부 소문자로만 쓰기
+- 회사의 도메인을 거꾸로 
+- ctrl+n 을 누른 후 class 생성 
+- 클래스 명은 첫글자 대문자, 띄어쓰기 하지말고 띄어쓰는 단어 첫글자에 대문자 
+- main mathod 를 생성 [main] 적은 후 ctrl+space 
+- console에 출력하는 것은  [sysout] 적은 후 ctrl+space 
+-println("hello world");
+ println(11);
+ println("h");
+ println('h');
+ println(true);
+ println(false);
+
+
+
+6. 변수(變數) 변하는 데이터 (↔상수(常數) 항상 같은 값을 가지는 데이터)
+
+대입연산자 =
+
+일반 수학에서 = 은 좌항과 우항이 같다(ex. 3+3 = 5+1)는 것을 나타내는 등호이지만
+컴퓨터 프로그래밍에서의 = 는 우측의 값을 좌측의 변수에 대입 (복사해서 준다)하라는 의미
+  
+  a = b 는 b의 값을 a에 대입하세요 라는 의미가 된다.
+  이 때, a 는 변수가 되는것이다.
+
+  예를 들어, a = 3; 이라는 코드를 입력했을 때,
+  3을 a에 넣어주세요. 라는 의미가 된다.
+  단, 4 = 3; 상수와 상수를 대입하는것은 불가능하다. 
+
+  변수명 (값을 담을 그릇의 이름) = 값 또는 변수;
+  변수에 값 또는 변수를 대입했다고 하여서, 이콜의 우항에 있는 값이 사라지는 것은 아니다.
+
+ex) a = 5; 숫자 5를 a 에 대입(복사해서 집어넣)해주세요.
+
+     이 때, a에 5를 대입하세요 라고는 쓰지 않는다
+     왜냐하면 모든 데이터의 기준은 좌항 이기 때문이다!
+
+     c = b; b의 값을 복사하여서 c에 대입하세요.
+     a = 3+7 3과 7을 더한 결과값을 변수 a에 대입하세요.
+
+
+ 
+*모달 : 팝업 페이지이지만 메인이 비활성화 되어있음 (팝업 페이지와 다름)
+조건에 부합하면 다음 접속시에는 창이 뜨지 않음
+
