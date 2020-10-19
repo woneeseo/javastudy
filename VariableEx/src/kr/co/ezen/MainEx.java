@@ -229,6 +229,27 @@ public class MainEx {
 		
 		System.out.println(a);
 		
+		// 자료형은 크게 두가지로 나뉜다.
+		// 기본 자료형과 참조 자료형
+		// 참조자료형은 기본자료형이 아닌 것
+		// 기본자료형은 boolean, char, byte, short, int, long, float, double 의 8가지
+		// 1. boolean : 값으로 참과 거짓만을 가질 수 있는 자료형
+		boolean aaaa = true;
+		boolean bbbb = false;
+		// 2. char : 값으로 문자 하나만을 가질 수 있는 자료형. 값은 반드시 작은따옴표''안에 적어줌
+		char cccc = '얍';
+		// (정수형 자료형)
+		// 3. byte : -128~127까지의 숫자범위를 가진다. 멀티미디어 작업을 할 때 주로 씀
+		byte dddd = 12;
+		// 4. short : 자주 사용하지 않음
+		// 5. int : 정수형 자료형의 기본. 표현범위는 -21억~21억의 범위
+	    int eeee = 12364536;
+		// 6. long : 정수형 자료형에서 가장 큰 범위를 가진다. 사용하고 싶을 때는 값 뒤에 l/L을 쓴다.
+		long ffff = 1032415645L;
+		// 7. float : 실수형 자료형. 정밀도가 낮음. 사용하고 싶을 때는 값 뒤에 f/F를 씀
+		// 8. double : 실수형 자료형의 기본형. 정밀도가 높다.
+		
+		
 		
 				
 		
