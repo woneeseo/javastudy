@@ -1,0 +1,13 @@
+package kr.co.ezen;
+
+public class Method {
+	
+	public Method() {
+		
+	}
+	
+	public void hello() {
+		System.out.println("hello");
+	}
+
+}

@@ -9,36 +9,23 @@ public class MainEx {
 		
 		Test t1 = new Test();
 		
-		t1.me1();
+		Test t2 = new Test();
 		
-		t1.me2();
-		
-		t1.me3();
+	
 		System.out.println();
 		
-		t1.me4(6);
+		t1.me();
 		System.out.println();
-		System.out.println();
+		t1.me11();
 		
-		t1.dan(3);
-		System.out.println();
-		System.out.println();
+		t1.sumHundred();
+		t1.name();
 		
-		t1.isSosu(15);
 		
-		t1.me5();
 		
-		t1.me5(2);
 		
-		t1.gugudan();
 		
-		t1.printStar();
-		System.out.println();
-		t1.printStar(15);
 		
-		t1.halfDiamond();
-		
-		t1.me6();
 		
 	}
 

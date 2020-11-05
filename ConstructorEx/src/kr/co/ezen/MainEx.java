@@ -1,7 +1,7 @@
 package kr.co.ezen;
 
 public class MainEx {
-
+// 객체 만들어서 매서드 호출하기 
 	public static void main(String[] args) {
 		
 		Test1 t1 = new Test1();

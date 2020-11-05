@@ -1,0 +1,18 @@
+package kr.co.ezen;
+
+public class MainEx {
+	public static void main(String[] args) {
+		// hello -> what
+		
+		System.out.println("what");
+		System.out.println("hi");
+		System.out.println("good");
+		System.out.println("morning");
+		System.out.println("what");
+		System.out.println("good");
+		System.out.println("hi");
+		System.out.println("what");
+		
+	}
+
+}

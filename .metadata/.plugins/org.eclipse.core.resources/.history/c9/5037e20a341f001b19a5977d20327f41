@@ -1,0 +1,10 @@
+package com.naver;
+
+public class Test {
+	
+	public void me1(int a, int b) {
+		System.out.println(a+b);
+		
+	}
+
+}

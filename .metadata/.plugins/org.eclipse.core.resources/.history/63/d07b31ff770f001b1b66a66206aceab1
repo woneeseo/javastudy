@@ -1,0 +1,45 @@
+package kr.co.ezen;
+
+public class MainEx {
+	public static void main(String[] args) {
+		// 변수 선언 공식
+		// 자료형 변수명 = 자료형에 맞는 값;
+		
+		String msg = "hello";
+		String msg2 = "hi";
+		String msg3 = "good";
+		String msg4 = "morning";
+		
+	
+		System.out.println(msg);
+		System.out.println(msg2);
+		System.out.println(msg3);
+		System.out.println(msg4);
+		System.out.println(msg);
+		System.out.println(msg3);
+		System.out.println(msg2);
+		System.out.println(msg);
+		
+		
+		String msg5 = "maybe";
+		String msg6 = "welcome";
+		String msg7 = "wow";
+		String msg8 = "hey";
+		String msg9 = "what";
+		Stirng msg0 = "why";
+		
+		
+		
+		System.out.println(msg5);
+		System.out.println(msg6);
+		System.out.println(msg7);
+		System.out.println(msg8);
+		System.out.println(msg9);
+		System.out.println(msg0);
+		
+		
+	
+		
+	}
+
+}

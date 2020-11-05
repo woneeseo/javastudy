@@ -1,7 +1,166 @@
 package com.naver;
 
-
 public class Test {
+	
+	public void name() {
+		int sum =0;
+		
+		for(int i =0; i<101; i++) {
+			sum +=i;
+		}
+		System.out.println("1부터 100까지의 합은 "+sum+" 입니다.");
+	}
+	
+	public void sumHundred() {
+		int i =0;
+		int sum = 0;
+		
+		while(i<101) {
+			sum +=i;
+			i++;	
+		}
+		
+		System.out.println("1부터 100까지의 합은 "+sum+" 입니다.");
+		
+	}
+	
+	public void sum66() {
+		int sum = 0;
+		int i = 0;
+		while(i<50) {
+			sum +=i;
+			i++;
+			System.out.println(i+" 번째 합 "+sum);
+			if(sum == 66) {
+				break;
+			}
+		}System.out.println("66을 만나 종료합니다");
+	}
+
+	
+	public void star() {
+		for(int i=1; i<6; i++) {
+			for(int j=1; j<6; j++) {
+				System.out.print('*');
+			}System.out.println();
+		}
+	}	
+	
+	public void me11() {
+		int i =0;
+		int sum = 0;
+		while(i<6) {
+			sum +=i;
+			i++;
+		}
+		System.out.println(sum);
+		
+	}
+	
+	
+	
+	public void me() {
+		int sum = 0;
+		for(int i =1; i<6; i++) {
+			sum +=i;	
+		}
+		
+		System.out.println(sum);
+	}
+	
+
+	public void me10() {
+		int i=0;
+		while(i<30) {
+			if(i%6==0 && i !=0) {
+				
+				break;
+			}
+			
+			System.out.println(i);
+			i++;
+		}
+	}
+	
+	public void me999() {
+		int i = 0;
+		while(i<30) {
+			if(i%5 == 0 && i != 0) {
+				++i;
+				continue;
+			}
+			
+			System.out.println(i);
+			i++;
+		}
+	}
+	
+	public void me99() {
+		for(int i = 0; i<30; i++) {
+			
+			for(int j = 0; j<1; j++) {
+				
+				if(i%6==0) {
+					break;	
+				}
+				
+				System.out.println(i);
+	
+			}
+		}
+	}
+	
+	public void me9() {
+		for(int i = 0; i<30; i++) {
+			if(i%5==0) {
+				continue;
+			}System.out.println(i);
+		}
+		
+	}
+	
+	public void me8() {
+		for(int i=0; i<10; i++) {
+			if (i%5==0) {
+				// 5의 배수만 안찍고싶어!
+				// 해당 회차만 빠져나감
+				// 결과를 보면 1,2,3,4,6,7,8,9 가 출력됨
+				continue;
+			}
+			System.out.println(i);
+		}
+	}
+	
+	public void me71() {
+		for(int i=10; i >=0; i--) {
+			System.out.println("외부 for문 시작"); // 1번
+			
+			for(int j = 100; j<105; j++) {
+				if(i%2==0) {
+					break;// 2번
+					// 자신을 감싸고 있는 가장 가까운 반복문을 빠져나감
+					
+				}
+				System.out.println(i+" : "+j); // 3번
+			}
+			System.out.println("외부 for문 종료"); // 4번
+		}
+		System.out.println(1111); // 5번
+	}
+	
+	// 만약 2의 배수이다? 1번->2번->4번->다시 1번 증감식
+	// 만약 2의 배수가 아니다? 1번->3번을 다음 2의 배수가 나올 때 까지 반복->4번->1번 증감식
+	
+	public void me7(int num) {
+		for(int i =0; i<10; i++) {
+			if(num%3==0) {
+				
+				System.out.println("3의 배수가 검출되었습니다. 가장 가까운 반복문을 중단합니다.");
+				break;
+			}
+			System.out.println(i);
+		}
+	}
 	
 	
 	public void halfDiamond() {

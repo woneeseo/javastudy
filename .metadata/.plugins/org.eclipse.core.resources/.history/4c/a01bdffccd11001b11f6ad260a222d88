@@ -1,0 +1,12 @@
+package com.naver;
+
+public class MainEx {
+	public static void main(String[] args) {	
+	 char c = 'A'+1;
+	 
+	 System.out.println(c);
+	 
+	 
+	}
+
+}

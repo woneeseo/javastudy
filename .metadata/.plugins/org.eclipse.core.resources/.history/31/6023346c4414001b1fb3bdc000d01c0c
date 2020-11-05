@@ -1,0 +1,39 @@
+package kr.co.ezen;
+
+import com.naver.CarRegistManagementService;
+import com.naver.DogRegistManagementService;
+
+public class MainEx {
+	public static void main(String[] args) {
+		
+		CarRegistManagementService crms = new CarRegistManagementService();
+		
+		crms.setCarName("K7");
+		
+		String carName = crms.getCarName();
+		System.out.println(carName);
+		
+		CarRegistManagementService crms2 = new CarRegistManagementService();
+		
+
+		long result = crms2.add(2100000000, 500000000);
+		System.out.println(result);
+		// 범위값 초과해서 오버플로우가 일어남
+		// 경계값 테스트 . 테스트를 많이 해줘야 함.
+		
+		DogRegistManagementService drms = new DogRegistManagementService();
+		
+		Dog d1 = drms.makeDog("happy", 3);
+		System.out.println(d1);
+		
+		System.out.println(d1.getName());
+		System.out.println(d1.getAge());
+		
+		Cat c = new Cat();
+		Cat b = c.makeCat("김왁왁", 23);
+		System.out.println(b);
+		System.out.println(b.getAge());
+		
+	}
+
+}

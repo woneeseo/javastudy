@@ -32,6 +32,15 @@ public class MainEx {
 		Cat c = new Cat();
 		System.out.println(c);
 		System.out.println(c.makeCat("±è¶Ê¶Ê", 10));
+		System.out.println(c.getName());
+		System.out.println(c.getAge());
+		
+		Cat cc = c.makeCat("±è¾ß¿Ë", 12);
+		
+		System.out.println(cc);
+		System.out.println(cc.getName());
+		System.out.println(cc.getAge());
+		
 		
 		
 	}

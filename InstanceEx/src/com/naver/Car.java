@@ -53,8 +53,14 @@ public class Car {
 	// 변수를 반환
 	
 	public String run(int speed) {
-		String msg = speed + "로 달린다.";
+		String msg = speed + "의 속도로 달린다.";
 		return msg;
+		
+	}
+	
+	public String dogSleep(String where) {
+		String a = where + "에서 잔다.";
+		return a;
 		
 	}
 

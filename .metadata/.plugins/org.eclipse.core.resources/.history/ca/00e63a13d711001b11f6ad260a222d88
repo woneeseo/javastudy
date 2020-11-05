@@ -1,0 +1,21 @@
+package com.naver;
+
+public class cat {
+
+	public cat() {
+		
+		System.out.println(name);
+		int b = 33;
+		System.out.println(b);
+		
+	}
+	
+	public void me1() {
+		
+		System.out.println(name);
+	}
+	
+	String name = "happy";
+	// member 변수 (instance 변수)
+
+}

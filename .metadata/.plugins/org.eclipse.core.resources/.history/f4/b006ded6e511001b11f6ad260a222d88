@@ -1,0 +1,21 @@
+package com.naver;
+
+public class Cow {
+	
+	String msg;
+	
+	public Cow() {
+		int hh = 563;
+		System.out.println(hh);	
+		
+		hh = 235;
+		System.out.println(hh);
+		
+		System.out.println(msg);
+		
+		System.out.println("hello world");
+		
+	}
+	
+
+}

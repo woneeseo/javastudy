@@ -1,0 +1,36 @@
+package com.naver;
+
+import javax.annotation.processing.SupportedSourceVersion;
+
+public class MainEx {
+	
+	public static void main(String[] args) {
+		int a = 10;
+		 // 변수 a 선언하면서 10으로 초기화 했구나.
+		System.out.println(a);
+		System.out.println(a+1);
+		
+		System.out.println(a*10);
+		
+		a = 100;
+		// 100을 a에 대입하시오.
+		System.out.println(a);
+		
+		int c = 0;
+		// 먼저 변수 c를 선언해주어야
+		c = 44;
+		// 변수 c에 값을 대입할 수 있다
+		System.out.println(c);
+		
+		System.out.println("############");
+		Cat aa = new Cat();
+		
+		char bb = 'a'+40;
+		System.out.println(bb);
+		
+	
+	
+	}
+	
+
+}

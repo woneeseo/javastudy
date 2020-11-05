@@ -27,6 +27,9 @@ public class MainEx {
 		hero.setBow(bow);
 		hero.setSword(sword);
 		// 히어로한테 무기를 장착시켜주고
+		// set(무반환 매서드)를 쓴 이유가 그러면
+		// 동작을 하게만 하면 되니까
+		// hero가 무기를 장착하기만 하면 되니까 반환값 필요없지
 		
 		hero.attakcBySpear(mon);
 		hero.attack(mon);

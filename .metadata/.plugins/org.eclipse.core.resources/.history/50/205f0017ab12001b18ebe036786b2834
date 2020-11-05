@@ -1,0 +1,18 @@
+package kr.co.ezen;
+
+public class Method {
+	
+	public Method() {
+		
+	}
+	
+	public void hello() {
+		System.out.println("hello");
+	}
+	
+	public void score(String name, String text, int score) {
+		System.out.println(name + "의 " + text + "과목 점수는 " + score + "점 이다.");
+	}
+	
+
+}

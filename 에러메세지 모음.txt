@@ -1,0 +1,9 @@
+
+int[] arrException = {1, 2, 3};
+		System.out.println(arrException[3]);
+
+Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: 
+Index 3 out of bounds for length 3
+
+
+=> 인덱스가 가질 수 있는 length를 벗어남 

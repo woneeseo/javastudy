@@ -8,6 +8,9 @@ public class Hero {
 	private Shild shild;
 	private exAttack exAttack;
 	
+	public Hero() {
+		
+	}
 	
 	public exAttack getExAttack() {
 		return exAttack;
@@ -40,10 +43,6 @@ public class Hero {
 		this.sword = sword;
 		this.spear = spear;
 		this.shild = shild;
-	}
-
-	public Hero() {
-		
 	}
 
 	public Hero(Bow bow, Sword sword, Spear spear) {

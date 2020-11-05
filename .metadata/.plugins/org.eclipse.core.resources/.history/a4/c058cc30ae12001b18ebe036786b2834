@@ -1,0 +1,48 @@
+package kr.co.ezen;
+
+public class MainEx {
+	public static void main(String[] args) {
+		
+		Method m = new Method();
+		
+		m.hello();
+		
+		System.out.println();
+		
+		m.score("È«±æµ¿", "°úÇÐ", 89);
+		m.score("±èÀÏ½Ä", "¼öÇÐ", 95);
+		m.score("±èÀÌ½Ä", "¿µ¾î", 50);
+		m.score("±è»ï½Ä", "»çÈ¸", 100);
+		m.score("±èÅä²¤", "±¹¾î", 100);
+		m.score("¹Úº¹¼ö", "Ã¼À°", 85);
+		
+		System.out.println();
+		
+		System.out.println("#######");
+		
+		System.out.println();
+		
+		m.printDan(15);
+		
+		System.out.println();
+		
+		m.melon();
+		
+		System.out.println();
+		
+		m.winnigScore("ÇÑÈ­ÀÌ±Û½º", 3.454);
+		
+		System.out.println();
+		
+		m.hobby(new String("È«±æµ¿"), new String("µ¶¼­"));
+		m.hobby(new String("±èÁ¡·Ê"), new String("À½¾Ç°¨»ó"));
+		
+		
+		Method n = new Method();
+		
+		
+		n.melon();
+		
+	}
+
+}

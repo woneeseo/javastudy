@@ -1,0 +1,68 @@
+package kr.co.ezen;
+
+public class MainEx {
+	public static void main(String[] args) {
+		// 변수 선언 공식
+		// 자료형 변수명 = 자료형에 맞는 값;
+		
+		String msg = "hello";
+		String msg2 = "hi";
+		String msg3 = "good";
+		String msg4 = "morning";
+		
+	
+		System.out.println(msg);
+		System.out.println(msg2);
+		System.out.println(msg3);
+		System.out.println(msg4);
+		System.out.println(msg);
+		System.out.println(msg3);
+		System.out.println(msg2);
+		System.out.println(msg);
+		
+		
+		String msg5 = "it";
+		String msg6 = "fill";
+		String msg7 = "wow";
+		String msg8 = "law";
+		String msg9 = "what";
+		String msg0 = "why";
+		String msg11 = "cheer";
+		String msg12 = "beep";
+		String msg13 = "oops";
+		String msg14 = "zip";
+		String msg15 = "pop";
+		String msg16 = "lol";
+		String msg17 = "kick";
+		String msg18 = "boo";
+		String msg19 = "gap";
+		String msg20 = "none";
+		String msg21 = "walk";
+		String msg22 = "orange";
+		String msg24 = "pick";
+		String msg25 = "will";
+		String msg26 = "gick";
+		String msg23 = "english";
+	
+		
+		
+		
+	
+		// 변수 선언 공식
+		// 자료형 변수명 = 자료형에 맞는 값;
+		
+		String f = "이순신";
+		System.out.println(f);
+		
+		int a = 3;
+		String b = "3";
+		
+		System.out.println(a/b);
+		
+		
+		
+	
+		
+	}
+
+}

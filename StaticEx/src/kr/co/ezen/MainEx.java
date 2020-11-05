@@ -1,6 +1,5 @@
 package kr.co.ezen;
 
-import com.naver.Sonata;
 import com.naver.Test;
 
 public class MainEx {

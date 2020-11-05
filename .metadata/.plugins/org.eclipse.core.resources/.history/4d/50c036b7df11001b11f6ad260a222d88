@@ -1,0 +1,23 @@
+package com.naver;
+
+public class Cat {
+	// 이쪽에 입력하면 멤버변수가 됨
+	// 멤버변수는 선언만 해줌
+	boolean a;
+	char b;
+	byte c;
+	short d;
+	int f;
+	long g;
+	float h;
+	double i;
+	String msg;
+	
+	public Cat() {
+		// 지역변수 입력하는 곳
+		int f = 50;
+		System.out.println(f);
+		
+	}
+
+}

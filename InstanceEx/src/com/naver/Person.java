@@ -77,6 +77,10 @@ public class Person {
 		String mn = k7.getModelName();
 		System.out.println(mn);
 		
+		// get(유반환 메서드) 를 쓴거는
+		// modelName 이라는 값을 알고싶으니까
+		// modelName에 저장된 값을 가져와라고 유반환 메서드를 쓴거야
+		
 	}
 	
 }

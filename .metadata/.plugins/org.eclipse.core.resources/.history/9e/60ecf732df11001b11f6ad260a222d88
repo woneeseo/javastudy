@@ -1,0 +1,12 @@
+package kr.co.ezen;
+
+public class Dog {
+	
+	String b = new String("hello");
+	
+	public Dog() {
+		int a = 55;
+		
+	}
+
+}

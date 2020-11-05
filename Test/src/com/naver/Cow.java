@@ -3,6 +3,9 @@ package com.naver;
 public class Cow {
 	
 	String msg;
+	int hhhh;
+	byte jjjj;
+	
 	
 	public Cow() {
 		int hh = 563;
@@ -24,6 +27,19 @@ public class Cow {
 		
 		ee = 123464;
 		System.out.println(ee);
+		
+		char ggg = '0'+17;
+		System.out.println(ggg);
+		
+		int kkk = 443343;
+		
+		System.out.println(kkk);
+		
+		kkk = 0;
+		
+		System.out.print(kkk);
+		System.out.println(hhhh);
+		
 		
 		
 		

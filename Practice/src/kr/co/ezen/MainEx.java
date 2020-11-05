@@ -1,25 +1,93 @@
 package kr.co.ezen;
 
+import com.naver.IndexEx;
+import com.naver.Test2;
+import com.naver.WhileEx;
+
 public class MainEx {
 	public static void main(String[] args) {
 		
-		Person p1 = new Person("辫动嫰", "辑匡", "切积", new Dog("皋府", 2, "辫动动", "辑匡"), new Car(), "123456", 22);
+		IndexEx i1 = new IndexEx();
 		
-		System.out.println(p1.getAdderss());
-		System.out.println(p1.getJob());
-		System.out.println(p1.getPhoneNumber());
+		i1.myarr();
+		System.out.println();
 		
-		Person p2 = new Person("冠港港", "版扁", "切积", new Dog("冠具克", 2, "冠港港", "版扁"), new Car(), "123456789", 25);
+		Test2 t2 = new Test2();
 		
-		System.out.println(p2.getName());
-		System.out.println(p2.getDog().getDogAdderss());
-		System.out.println(p2.getDog().getDogMaster());
-		System.out.println(p2.getAge());
+		t2.me1();
+		System.out.println();
+		t2.me2();
 		
-		System.out.println(p1.getJob());
+		System.out.println();
+		
+		t2.me3();
+		System.out.println();
+		
+		t2.me3(6);
+		System.out.println();
+		
+		t2.gugudan(3);
+		
+		t2.isSossu(9);
+		System.out.println();
+		System.out.println();
+		
+		t2.me4();
+		System.out.println();
+		t2.gugudanDa();
+		System.out.println();
+		
+		t2.me7(10);
 		
 
+		
+		System.out.println();
+		
+		t2.gugudanDa();
+		
+		t2.gugu();
 	
+		t2.star(5);
+		System.out.println();
+		
+		t2.starTriangle(20);
+		
+		t2.isSosu(11);
+		
+		WhileEx w1 = new WhileEx();
+		
+		w1.printStar(9);
+		
+		System.out.println();
+		System.out.println();
+		
+		w1.printPibo();
+		System.out.println();
+		
+		
+		System.out.println();
+		System.out.println();
+		
+		w1.me369(30);
+		System.out.println();
+		
+		i1.name();
+		
+		System.out.println();
+		
+		i1.prinPibo(7);
+		
+		i1.arrSum();
+		System.out.println();
+		i1.minNum();
+		
+		System.out.println();
+	
+		
+		
+	
+	
+		
 	}
 
 }

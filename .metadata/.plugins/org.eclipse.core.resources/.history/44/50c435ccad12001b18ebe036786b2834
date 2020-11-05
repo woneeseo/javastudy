@@ -1,0 +1,41 @@
+package kr.co.ezen;
+
+public class MainEx {
+	public static void main(String[] args) {
+		
+		Method m = new Method();
+		
+		m.hello();
+		
+		System.out.println();
+		
+		m.score("홍길동", "과학", 89);
+		m.score("김일식", "수학", 95);
+		m.score("김이식", "영어", 50);
+		m.score("김삼식", "사회", 100);
+		m.score("김토깽", "국어", 100);
+		m.score("박복수", "체육", 85);
+		
+		System.out.println();
+		
+		System.out.println("#######");
+		
+		System.out.println();
+		
+		m.printDan(15);
+		
+		System.out.println();
+		
+		m.melon();
+		
+		System.out.println();
+		
+		m.winnigScore("한화이글스", 3.454);
+		
+		System.out.println();
+		
+		
+		
+	}
+
+}

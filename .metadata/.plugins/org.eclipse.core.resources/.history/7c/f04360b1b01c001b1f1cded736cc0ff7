@@ -1,0 +1,29 @@
+package com.naver;
+
+public class Test {
+	
+	public void me2() {
+		int i=0;
+		while(i<20) {
+			System.out.println(i*2);
+			i++;
+		}
+	}
+	
+	public void me1() {
+		int i = 0;
+		while(i<101) {
+			System.out.println(i);
+			i++;
+		}
+	}
+	
+	public void me11() {
+		int i = 100;
+		while(i>=0) {
+			System.out.println(i);
+			i--;
+		}
+	}
+	
+}

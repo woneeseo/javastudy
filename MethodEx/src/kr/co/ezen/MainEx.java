@@ -3,7 +3,7 @@ package kr.co.ezen;
 import com.naver.MethodTest2;
 import com.naver.MethodTest3;
 import com.naver.MethodTest4;
-
+// 객체 만들어서 매서드 호출하기
 
 public class MainEx {
 	

@@ -1,0 +1,13 @@
+package kr.co.ezen;
+
+public class MainEx {
+	public static void main(String[] args) {
+		
+		Method m = new Method();
+		
+		m.hello();
+		m.score("홍길동", "과학", 89);
+		
+	}
+
+}
