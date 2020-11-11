@@ -1,0 +1,233 @@
+<내부클래스>
+
+
+public class Test2 {
+- 내부클래스
+
+	private String msg;
+	private int price;
+	
+	public class MemberClass{
+	멤버 내부 클래스 : 
+	생성자나 메서드처럼 클래스 내부에 있는 클래스라서 멤버 내부 클래스라고 부른다. 
+		
+		private int age;
+		
+		public void mc1() {
+			
+			
+			System.out.println("mc1");
+			// 내부클래스에서 메서드를 생성해서 쓸 수도 있고.
+			// 내부클래스에서 변수를 선언하거나 getters and setters등의
+			// 메서드도 충분히 사용이 가능하다.
+			
+			
+			
+			System.out.println(price);
+			System.out.println(msg);
+			me1();
+			// 내부 클래스를 품고있는 클래스의 필드 영역에서 선언한 변수들이나 매서드들은
+			// 따로 객체를 설정하지 않아도 내부클래스 안에서 사용이 가능하다.
+			
+		}
+
+
+Test2.MemberClass mc = new Test2().new MemberClass();
+
+	내부클래스 호출 할 때 : 
+	내부클래스를 가지고 있는 클래스를 호출해서 닷연산자로 내부클래스를 불러온뒤
+	클래스로 객체를 만들고, 닷 연산자로 내부클래스를 불러와 객체를 만들어줌
+		
+
+<static 내부클래스>
+
+Test3.StaticInnerClass sic1 = new Test3.StaticInnerClass();
+
+	static class 이기 때문에, 객체를 생성할 수 없음
+	객체를 생성해 줄 test3을 매개체로 사용해 Static class의 객체를 만들어줌
+	Static변수가 메인메서드에 호출되기 위해서는 클래스를 매개로 객체를 만들어줘야함.
+
+
+<local 내부 클래스>
+
+
+public void me1() {
+
+	로컬 내부 클래스
+	(로컬 내에서는 접근제한자 쓸 수 없음)
+	int a = 10;
+		
+	class LocalInnerClass{
+	메서드 안에 메서드는 만들 수 없지만
+	로컬 내부 클래스를 이용해서 간접적으로 만들어 사용할 수 있음
+			
+	public void lic() {
+		System.out.println(a);
+			
+		로컬 변수나 로컬 내부 클래스는 외부로 호출 할 수 없기 때문에
+		보안이 강력하다.
+				
+			}
+		}
+		
+
+	LocalInnerClass lic1 = new LocalInnerClass();
+	lic1.lic();
+	로컬 내부 클래스이기 때문에 클래스가 생성된 me1메서드에서는 
+	자유롭게 사용이 가능하지만, me1() 밖에서 사용하고자 한다면, 객체를 생성해줘야 한다.
+
+
+<익명의 내부 클래스>
+
+클래스는 구조적으로 class 키워드가 있어야 클래스이다.
+하지만 익명의 내부클래스는 class 키워드가 없기 때문에 "익명"의 내부 클래스라고 한다.
+
+1. 변수를 선언하면 쓰는 익명의 내부 클래스 : 가짜 익명의 내부 클래스
+
+public Inter1 ano = new Inter1() {
+	익명의 내부 클래스 
+	가짜 익명의 내부 클래스 = 변수를 선언하고 사용하기 때문에 외부에서 호출이 가능함
+	@Override
+	public void me1() {
+		}
+	};
+
+메인 메서드에서 호출해 사용할 때, 객체.변수.메서드 로 접근이 가능함.
+
+	Test5 t5 = new Test5();	
+	t5.ano.me1();
+
+2. 변수 선언 없이 사용하는 익명의 내부 클래스 : 진짜 익명의 내부 클래스 
+
+public Test6() {
+	진짜 익명의 내부클래스. 외부에서 호출이 불가능.
+	변수 선언 없이 사용하는 익명의 내부 클래스
+		
+	new Inter1() {
+	메서드가 하나인 인터페이스 -> functional interface
+			
+	@Override
+	public void me1() {
+	System.out.println(1111);
+				
+		}
+	}.me1(); 
+
+	/* 객체를 만들고 곧바로 메서드를 불러와서 사용하는 형식*/
+	진짜 익명의 내부 클래스는 외부에서 호출이 안되고 로컬 영역에서 선언해서 사용함. 		
+}
+
+
+
+<예외처리>
+
+*오류가 발생할 가능성이 있는 부분이 어딘지를 파악하는 것이 중요함*
+
+: 개발자의 잘못을 처리하기 위해 사용해서는 안됨.
+문법적으로 이상이 없지만 논리적으로 이상이 있을 경우에 사용
+
+또는
+
+사용자로부터 데이터를 입력받는데, 사용자가 잘못된 데이터를 입력했을 때를 대비해서 사용
+
+
+1. try~catch : 예외가 발생했어도 예외가 없는 것과 같은 효과를 낸다.
+	     (예외가 분명히 발생했지만, 호출한 사람은 예외가 발생했는지 여부를 알 수 없다.)
+
+try영역 : 예외가 발생할 수 있는 코드를 입력
+catch영역 : 예외가 발생했을 때 실행할 코드를 입력
+
+try {
+	String msg = (String) t2;
+	try (= exception이 발생하는 코드를 입력)
+	} catch (Exception e) {
+	(비정상적인 예외가 발생했다 => catch부의 실행식이 실행됨)
+	System.out.println("뭔가가 문제가 있지만 무시하겠음.");
+	}
+
+	=>예외가 없으면 try-catch문을 빠져가남
+
+(Exception 메세지가 콘솔창에 출력되지 않는다. 
+	 뭔가가 문제가 있지만 무시하겠음. --이 출력된다.)
+
+
+
+2. throws : 예외가 발생했을 때 해당 메서드를 호출한 곳에서 예외처리를 하도록 예외를 던져줌.
+
+
+public void me5(int idx) throws Exception {
+		String msg = "hi";
+		System.out.println(msg.charAt(idx));
+	
+	}
+==> me5( )에서 throws 키워드를 입력해주면 호출한 곳에서 예외처리를 할 수 있도록 해줌
+	
+try {
+	t1.me5(100);
+	} catch (Exception e) {
+			
+	e.printStackTrace();
+	(exception 메세지가 출력되도록 하는 메서드)
+	System.out.println("100을 입력했더니 문제가 발생했음.");
+     }
+
+==> 메인메서드에서 try~catch를 할 수 있도록 오류를 띄워서 알려줌
+
+출력하면
+
+java.lang.StringIndexOutOfBoundsException: String index out of range: 100
+	at java.lang.String.charAt(String.java:658)
+	at com.naver.Test.me5(Test.java:47)
+	at kr.co.ezen.MainEx.main(MainEx.java:17)
+100을 입력했더니 문제가 발생했음.
+
+
+
+3. try~catch~finally
+
+일반적인 try~catch문은 성공하면 try에 있는 식의 값을 주고 끝나고,
+실패하면 catch값을 주고 끝나는데 
+finally는 성공을 하든, 실패를 하던 반드시 실행되는 코드를 가지고 있다. 
+
+
+public void me61() {
+		int a = 4;
+		try {
+			System.out.println(a/0);
+		} catch (Exception e) {
+			System.out.println("0으로 나누어서 예외처리가 되었습니다.");
+			return;
+		}finally {
+			System.out.println("성공하든 실패하든 무조건 실행");
+			System.out.println("return보다 더 강력하다. ");
+		}// return이 있어도 finally문이 반드시 실행된다.
+		
+		System.out.println("me61() end.");
+		// return을 만나 출력되지 않았음.
+	}
+
+
+출력값
+
+0으로 나누어서 예외처리가 되었습니다.
+성공하든 실패하든 무조건 실행
+return보다 더 강력하다. 
+
+return을 만나면 메서드를 바로 빠져나가게 되어있는데,
+catch부에 return을 적었지만, finally에 있던 코드가 전부 실행되었다.
+try~catch~finally문의 밖에 적혀있던 "me61() end." 를 출력하는 코드는
+return을 만나 실행되지 않고 메서드를 빠져나감 => finally가 return보다 강력하다.
+
+
+4. throw : 문법적으로 예외는 아니지만 논리적인 예외를 "발생"시키는 기능
+	설정해놓은 오류가 발견되면 오류메세지를 출력하며 메서드를 멈춘다. 
+
+5. 사용자 정의 예외 클래스 : 가능하면 Exception을 상속하도록 하여, throws를 날리도록 구현,
+그러면 호출하는 메서드에서 try~catch 작업이 가능하다. 
+
+	RuntimeException을 상속한 경우 => 오류내용을 출력하면 메서드가 멈춤
+	따라서, Exception 클래스를 상속시켜 호출하는 메서드에서 오류내용을 확인 후
+	수정할 수 있도록 해야한다.
+
+
+
