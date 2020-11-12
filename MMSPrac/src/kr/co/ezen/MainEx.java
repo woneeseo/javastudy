@@ -41,7 +41,18 @@ public class MainEx {
 		System.out.println();
 		idx = sc.nextInt();
 		sc.nextLine();
-		coms[idx].execute(sc);
+		
+		if(idx == coms.length) {
+			break;
+		}
+		
+		try {
+			coms[idx].execute(sc);
+		} catch (Exception e) {
+			System.out.println("메뉴를 다시 선택하세요.");
+			
+		}
+		
 		
 	}
 

@@ -1,0 +1,173 @@
+<calendar class>
+
+: 캘린더 클래스를 이용해 만들어지는 객체는 만들어지는 순간의 정보를 가지고 있음
+(만들어지는 순간의 년, 월, 일, 요일, 시간 등...)
+
+1. calendar 클래스 객체 생성 방법
+
+	Calendar c = Calendar.getInstance();
+
+calendar class는 추상클래스이기 때문에 객체를 만들 수 없음.
+캘린더 클래스가 가지고 있는 getInstance 메서드를 통해서 자원을 사용할 수 있게 된다.
+
+2. c를 이용해서 연도정보 추출하기.
+
+	int year = c.get(Calendar.YEAR);
+
+get(calendar.())를 이용하면 년 월 일 정보를 모두 가져올 수 있다.
+calandar class의 static변수를 이용하기 위해서는 calendar.static변수명 을 입력해주면 된다.
+		
+월정보  int month // 날짜정보 int date // 요일정보 int day
+(캘린더 클래스의 month는 0월~11월으로 되어있다 : 
+	사용자들에게 보여줘야 할 때는 출력할 month+1 을 해주고
+	사용자가 입력한 값을 프로그래머에게 넘겨줘야 할 때는 month-1을 해줘야 한다)
+
+	int month = c.get(Calendar.MONTH)+1;
+	int date = c.get(Calendar.DATE);
+	int day = c.get(Calendar.DAY_OF_WEEK);
+
+3. 	
+	연도, 월, 일까지 한번에 변경하는 방법.
+	1950년 5월 25일의 정보를 알고싶을 때,
+
+	c1.set(1950, 6-1, 25);
+	System.out.println(c1);
+
+	set( )으로 시간대를 1950.6.25일로 설정한 뒤, 캘린더객체.(닷연산자로) 접근하면 됨
+
+
+4. 
+
+	System.out.println(c.getTime());
+	(getTime은 Date.java.util의 매서드)
+
+// 2020년 11월 12일입니다.
+// 20일 후에는 며칠일까요?
+		
+	c.add(Calendar.DATE, 20);
+
+add() 는 calendar객체의 정보를 특정 필드의 값에 주어진 값을 더해서 변경합니다. 
+
+	System.out.println(c.getTime());
+
+출력값:	Thu Nov 12 12:25:31 KST 2020
+	Wed Dec 02 12:25:31 KST 2020
+
+	날짜 정보가 변경된 것을 볼 수 있음.
+
+
+5. 
+
+	System.out.println(c.getTime());
+		
+	c.roll(Calendar.DATE, 20);
+	System.out.println(c.getTime());
+	
+roll을 사용하면 기존에 저장되어있는 정보는 변하지 않고 알고싶은 값만 확인할 수 있다. 
+해당 필드의 값만 변경이 되고, 다른 필드의 값은 변경이 안됨 (단, date-day는 연동됨!)
+
+출력값 :	Thu Nov 12 12:39:19 KST 2020
+	Mon Nov 02 12:39:19 KST 2020
+
+	date의 정보를 물어봤기 때문에, date값은 변경되었지만, 
+	month나 year의 정보는 그대로이다.
+
+
+6. 
+
+	c.getTime( )의 반환형 = Date
+
+자바에서는 캘린더 클래스를 쓴다.
+그러나 DB에서는 캘린더클래스보다는 Date 클래스를 많이 사용한다.
+따라서 반드시 두 타입을 변환할 수 있어야 한다. 
+
+	Date d = new Date(c.getTimeInMillis());
+	c.setTime(d);
+
+이렇게 변환하면 date객체를 calendar 클래스에서 받을 수 있음
+
+
+7.
+
+	SimpleDateFormat sdf = 
+		new SimpleDateFormat("YYYY년 MM월 dd일 hh시 mm분 ss초");
+	년/월/일/시간을 초기화 해 줌 => String Format( )과 비슷한 원리이다.
+	
+	String msg = sdf.format(c.getTime());
+	getTime( )으로 형변환( calendar class -> date clsee) 해준 뒤 
+
+	System.out.println(msg);
+	출력.
+
+
+출력값 :	2020년 11월 12일 02시 07분 29초
+
+
+< 기본자료형의 Wrapper Class >
+
+기본자료형에 참조자료형과 같은 객체를 부여해주는 wrapper class이다
+자바 컬렉션 프레임워크에서는 참조자료형으로 만든 객체만 사용이 가능하기 때문에
+new 객체를 만들어 줄 수 없는 기본자료형은 래퍼클래스를 통해 
+auto boxing 해 준다. (객체화 한다)
+
+<wrapper class와 디폴트값>
+
+		Boolean a = false;
+		(boolean a = new Boolean(false);)
+
+		Character b = ' ';
+		(=Character b = new Character('C');)
+
+		Byte c = 0;
+		Short d = 0;
+		Integer e = 0;
+		Long f = 0L;
+		Float g = 0.0F;
+		Double h = 0.0;
+
+
+- 문자열로 받은 기본자료형 값을 기본자료형으로 받을 수 있게 해주는 매서드
+ : parse___( )
+
+	문자열로 받은 숫자 123을 int형의 자료로 변환하기 위한 코드
+
+		String msg = "123";
+		int i = Integer.parseInt(msg);
+			     ----------------
+		System.out.println(i);
+
+	문자열로 받은 false를 boolean형의 자료로 변환하기 위한 코드
+
+		String msg = "false";
+		boolean b = Boolean.parseBoolean(msg);
+		System.out.println(b);
+		
+
+ cf) 모든 자료형과 함께 사용할 수 있는 valueOf 라는 메서드도 있으나 잘 사용하지 않음.
+	// boolean c = Boolean.valueOf(msg);
+
+ 
+ cf) char 는 charAt() 매서드를 이용한다.
+		String msg = "h";
+		char c = msg.charAt(0);
+		System.out.println(c);
+		
+
+
+< random class >
+
+	- start~end 범위에 있는 숫자가 임의로 나오도록 프로그래밍 하세요
+	
+
+	public void me5(int start, int end) {
+		Random ran = new Random();
+		int num = ran.nextInt(end-start+1)+start;
+		System.out.println(num);
+	}
+
+
+
+
+캘린더
+
+랜덤me5
