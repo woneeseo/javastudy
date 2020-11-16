@@ -2,66 +2,90 @@ package com.naver;
 
 import java.io.Serializable;
 
-public class MemberDTO2 implements Serializable, Comparable<MemberDTO2>{
+public class Dog implements Serializable, Comparable<Dog> {
+	
 
 	private static final long serialVersionUID = 1L;
 	private String id;
-	private String addr;
 	private String name;
-	private int price;
+	private String master;
+	private int age;
 	
-	public MemberDTO2() {
+	public Dog() {
 		// TODO Auto-generated constructor stub
 	}
-
-	public MemberDTO2(String id, String addr, String name, int price) {
-		super();
-		this.id = id;
-		this.addr = addr;
-		this.name = name;
-		this.price = price;
-	}
+	
+	
 
 	public String getId() {
 		return id;
 	}
 
+
+
 	public void setId(String id) {
 		this.id = id;
 	}
 
-	public String getAddr() {
-		return addr;
-	}
 
-	public void setAddr(String addr) {
-		this.addr = addr;
-	}
 
 	public String getName() {
 		return name;
 	}
 
+
+
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public int getPrice() {
-		return price;
+
+
+	public String getMaster() {
+		return master;
 	}
 
-	public void setPrice(int price) {
-		this.price = price;
+
+
+	public void setMaster(String master) {
+		this.master = master;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+
+
+	public int getAge() {
+		return age;
 	}
+
+
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+
+
+	public Dog(String id, String name, String master, int age) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.master = master;
+		this.age = age;
+	}
+	
+	
+	
+	
+	
+
+
 
 	@Override
 	public String toString() {
-		return id+" : "+ name;
+		return "Dog [id=" + id + ", name=" + name + "]";
 	}
+
+
 
 	@Override
 	public int hashCode() {
@@ -71,6 +95,8 @@ public class MemberDTO2 implements Serializable, Comparable<MemberDTO2>{
 		return result;
 	}
 
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -79,7 +105,7 @@ public class MemberDTO2 implements Serializable, Comparable<MemberDTO2>{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		MemberDTO2 other = (MemberDTO2) obj;
+		Dog other = (Dog) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -88,12 +114,13 @@ public class MemberDTO2 implements Serializable, Comparable<MemberDTO2>{
 		return true;
 	}
 
+
+
 	@Override
-	public int compareTo(MemberDTO2 o) {
-		
+	public int compareTo(Dog o) {
+		// TODO Auto-generated method stub
 		return this.getId().compareTo(o.getId());
 	}
-	
 	
 
 }

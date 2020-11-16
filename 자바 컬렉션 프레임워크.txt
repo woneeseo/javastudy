@@ -85,6 +85,7 @@ List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 
 int 자료형으로 입력된 값을 삭제하고 싶을 때 new Integer(인덱스에 저장된 값) 을 입력해주면 됨
 int형 자료값과 인덱스가 정수값으로 충돌하면 인덱스로 인식한다.
+인덱스를 이용해 삭제하는방법과 저장된 값을 이용해 삭제하는 방법(object) - 2가지가 있음
 		
 	System.out.println(list);
 		
@@ -117,18 +118,97 @@ list에서는 여러가지 데이터를 삭제하고 싶다면 뒤에서부터 �
 < set interface >
 
 
-- Set :  데이터의 중복을 허락하지 않음. 입력순서와 출력순서 사이에 상관관계가 없음
-	데이터의 중복은 equals( )로 체크. 
-	자료를 넣는 주머니(넣는 순서도 뒤죽박죽 꺼내는것도 뒤죽박죽)
+- Set :  데이터의 중복을 허락하지 않음. 
+          입력순서와 출력순서 사이에 상관관계가 없음 (인덱스가 없음)
+          데이터의 중복은 equals( )로 체크. 
+          자료를 넣는 주머니(넣는 순서도 뒤죽박죽 꺼내는것도 뒤죽박죽)
 
 - HashSet
+
+	- Set <참조자료형> set = new HashSet<참조자료형>( );
 
 	- 데이터 입력시에는 add( ) 를 씀
 	- 데이터를 가져올 때, get( )메서드를 사용할 수 없다 : 
 			순서가 뒤죽박죽이기 때문에 인덱스가 없음
 	- get( )대신 *iterator( )*로 데이터를 가져옴
+	
+		*iterator( ) : iterator interface 자료형으로 데이터를 반환해줌
+			   (*iterator - 반환자)
+			   데이터를 반환해주면, while문을 이용해서 set데이터를 획득
+			   이클립스에서 지원하는 기능
+		list와 set의 기능의 전반부는 비슷하지만, set에서 완벽히 list의 기능을	
+		구현할 수 없기 때문에 itreator 인터페이스가 매개체역할을 함
+
 	- size( )
 	- remove(Object obj) : 인덱스가 없기 때문에 직접적인 객체를 넣어야 삭제할 수 있음
+			   동등성 비교를 사용해  
 	- clear( )
-	- Map<key word, value> 의 키워드를 set으로 만든다(중복을 허용하지 않기 때문에)
+	- Set은 중복을 허용하지 않기 때문에 Map<key word, value> 의 키워드를 set으로 만든다
+	
+	
+
+< Map - HashMap >
+
+
+- map으로 객체를 만들 때는 hashmap을 이용한다.
+
+	Map<String, List<Dog>> map = new HashMap<String, List<Dog>>();
+	      key -자료형 / value - 값
+	 map은 제네릭타입을 2가지를 사용하여 인텍스 (key)를 스스로 만들어 쓸 수 있도록 해줌
+	어떤 자료형이든지 인덱스로 만들어 사용할 수 있음(key)
+
+- value 는 중복이 허용되지만, key는 중복을 허용하지 않는다.
+- 만일 , key가 중복되어 사용된 경우, 
+
+		map.put(1, "kim");
+		map.put(0, "lee");
+		map.put(2,"park");
+		map.put(1, "kang");
+		
+		key가 1인 값 kim->kang으로 바뀜
+
+key가 1인 값은 가장 마지막에 입력된 값으로 바뀐다. 
+
+- map에 자료를 입력할 때는 put( )을 사용한다.
+  (무언가 값을 2개 입력해야 하는 상황에서는 접두어로 put을 사용한다)
+
+		map.put(1, "kim");
+		map.put(0, "lee");
+
+- 참조자료형 뿐만 아니라 list 나 set형식의 자바 컬렉션 프레임워크도 사용할 수 있다. 
+
+- map에서 value를 가져오고 싶으면 key를 이용해서 가져올 수 있다.
+		(인덱스 대신 key를 쓰기 때문에)
+
+- get( )
+- remove( )
+- clear( )
+
+
+
+참조자료형의 정렬 -  Comparable interface를 구현하면 된다!
+
+@Override
+	public int compareTo(MemberDTO2 o) {
+		return this.getId().compareTo(o.getId())*-1;
+	}
+
+인터페이스를 생성하면 자동으로 오버라이딩이 생성되는데, return값에 compareTo( )를 이용해
+비교결과를 반환하는 식을 만들어 return해준다. 
+(마지막줄에 *-1을 해주면 큰수부터 역순으로 출력된다)
+
+		Collections.sort(list);
+		System.out.println(list);
+
+메서드에서 출력하기 위해서 Collections.sort(list); 를 입력해주면 원하는 결과값이 도출됨
+
+출력예 : 
+[a005 : 청송 : 사과5, a004 : 부산 : 사과4, a003 : 서울 : 사과3, a002 : 대전 : 사과2, a001 : 대구 : 사과1]
+
+
+기본자료형의 정렬 - 원하는 매서드영역에서 Collections.sort(list);만 해주면 됨
+
+- Collections.sort(list); - 무작위로 출력된 내용을 순서대로 정리할 수 있음. (기본자료형)
+	Collections.sort( ); 는 파라미터로 list형의 자료를 받아야 하기 때문에,
+	set에서 자료를 순서대로 배치하기 위해서는 list를 만들어줘야한다.
 
