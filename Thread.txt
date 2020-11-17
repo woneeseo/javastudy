@@ -1,0 +1,247 @@
+< Thread >
+
+
+- 실제로 프로그램을 실행하는 곳
+- 동시다발적으로 무언가가 움직인다 ? thread로 구현
+- start( )를 호출하면 그 때 Thread가 생성된다. 
+  (새로운 메모리 구조가 만들어진다. class-stack-heap)
+- Thread 간에서는 데이터가 공유된다. 그러나, Stack영역의 데이터는 공유 불가!!
+- Thread가 생성되면 Thread는 Runnable 상태(실행이 가능한 상태)가 된다.
+- Thread의 생애주기 (Life cycle)
+  Thread 생성(Start( )호출) -> *Runnable 상태(실행 대기중)* -> 
+				Running (Run( ) 실행됨) -> dead (소멸)
+
+	* Runnable 상태와 Running 상태는 반복될 수 있다.
+	* 더이상 실행시킬 내용(Running)이 없으면 dead (소멸) 한다.
+
+
+
+
+<Thread 를 만드는 방법>
+
+-첫번째 : Thread 클래스를 상속해 생성
+
+ 1. Test클래스를 Thread클래스로 만들었다 (extends Thread)
+	
+	public class Test extends Thread{
+	 (thread 클래스를 상속시키고)
+	 
+	@Override	(run()를 오버라이딩)
+	public void run() {
+		me1();
+	(실행시키고 싶은 메서드를 run메서드 안에 옮겨줌)
+	}
+	
+ 2. Test클래스를 이용해서 Thread객체를 만들었다.
+	Test t1 = new Test();
+ 
+ 3. Test클래스를 이용해서 Thread를 만들겠다.
+	t1.start();
+
+
+
+
+-두번째 : Runnable 인터페이스를 구현+Thread 객체를 이용해 Runnable객체를 참조
+
+ 1. 부모클래스인 Unit을 상속받으면서 Runnable 인터페이스를 구현하는 Test3클래스를 만들었다.
+	(java는 단일상속만 가능 : Thread 클래스를 중복으로 상속받을 수 없기 때문에
+	Runnable 인터페이스를 이용해 같은 기능을 할 수 있도록 구현해 줌)
+
+	public class Test3 extends Unit implements Runnable{
+
+ 2. 인터페이스를 구현하면 implement되지 않은 메서드가 있다는 메시지가 나온다.
+	오버라이딩 해서 run( )을 구현해준다.
+	
+	@Override
+	public void run() {
+		for(int i=0; i<10; i++) {
+			System.out.println("Test3 :"+i*100);
+		}
+	}
+
+ 3. main Thread에서 Test3을 이용한 객체를 먼저 만들어주고
+	Test3 r3 = new Test3();
+
+ 4. Runnable 객체를 참조로 받는 Thread 클래스를 생성해준다.
+	Thread t3 = new Thread(r3);
+ 
+ 5. Thread 완성 
+	t3.start();
+
+
+
+
+-세번째 : 익명의 내부클래스를 만들어 형성
+
+ 1. 익명의 클래스를 이용해서 구현 
+	
+	new Thread(new Runnable() {
+			
+	@Override
+	public void run() {
+		System.out.println("통신 등을 구현할 때, 자주 쓰는 스레드");
+		}
+	}).start();
+
+ 2. Thread 클래스를 이용해 객체를 만들어 준 뒤, 객체에 Runnable 을 참조시키면
+자동으로 run( )메서드가 오버라이딩 된다.
+오버라이딩 된 run( ) 내부에 실행시키고 싶은 코드를 입력.
+
+ 3. 익명의 내부클래스를 실행하기 위해서는 세미콜론 앞에 실행시키고 싶은 메서드를 넣어준다.
+우리가 실행하고 싶은 것은 run( )이라는 메서드가 아니라 Thread로써 사용하고 싶었으므로
+.start( )를 실행시켜 Thread로써의 역할을 할 수 있도록 해준다.
+
+	}).start();
+
+
+ - 어떤 방법으로 Thread를 만들어야 할 지 모르겠을 때 -> 두번째 방법으로 만들면 됨
+
+
+
+< Thread의 영역>
+
+main( ) : main Thread의 영역
+run( ) : 사용자 Thread의 영역
+
+join( ) : 이 메서드를 호출한 스레드는 현재의 영역을 관리하는 스레드보다 작업을 우선한다. 
+	(= 먼저 dead 상태로 빠진다)
+
+	t1.join( ); => join( )를 호출한 스레드는 t1
+	=> main스레드의 작업내용보다 먼저 t1스레드의 작업내용을 실행해 
+	     t1스레드를 먼저 dead상태로 만든다.
+
+	t1스레드가 main스레드보다 먼저 dead상태가 되게 하려면?
+	=> t1.join( )을 메인메서드에 코딩
+
+
+        try {
+		t1.join();
+		t2.join();
+		t3.join();
+	} catch (InterruptedException e) {
+		e.printStackTrace();
+	}
+
+	=> t1 / t2 / t3 스레드가 main스레드보다 먼저 dead에 들어가지만,
+	어떤 스레드가 먼저 dead에 들어가는지는 알 수 없다. 
+
+
+
+<Thread의 동기화> <->비동기화 
+
+
+- synchronized : 동기화문제를 해결
+
+	synchronized 키워드가 없으면, 순차적으로 실행되지 않는 스레드 특성 상
+	여러개의 스레드를 한번에 돌릴 경우 원하는 값을 출력하기 어렵다.
+	따라서 임계영역이 발생하는 메서드에 synchronized 키워드를 붙여 메서드를 동기화 한다 
+
+			public synchronized void addNum(int n) {
+				num += n;
+			}
+
+- 동기화를 보장하면 속도는 떨어지겠지만, 신뢰성이 높아지게 된다.
+
+- 동기화는 데이터를 공유할때만 발생한다. 
+
+- 동기화 된 데이터 영역에서 문제를 해결해야 함.
+
+- synchronized 는 자물쇠이다. 자물쇠로 잠겨있다는 이야기. 
+	이 자물쇠를 열고 들어가야 코드가 실행이 된다. 
+	열쇠는 해당 클래스로 만들어진 객체가 열쇠이다.
+
+	열쇠가 두개인 경우(synchronized된 메서드가 2개 이상인 경우)
+	하나를 사용하고 있으면, 다른 곳에서는 작업을 못하고 있는 경우가 발생한다.
+	동기화 메서드가 우선적으로 사용될 수 있도록 다른 작업을 잠궈버림
+
+- synchronized 메서드보다 synchronized 블럭을 사용하는 것이 성능이 더 좋다.
+
+		public void subTes(int n) {
+			synchronized (key1) {
+				tes -= n;
+			}		
+		}
+
+- 같은 변수끼리는 같은 열쇠를 사용하는것이 좋다
+
+	public void addNum(int n) {
+		synchronized (this) {
+			num += n; 
+		}
+	}
+	
+	public void subNum(int n) {
+		synchronized (this) {
+			num -= n;
+		} 
+	}
+
+	=> 같은 num변수를 사용하고 있기 때문에 synchronized mutex를 똑같이 해줌
+
+
+< 접근순서에 의한 동기화 >
+
+- 반드시 어떠한 한 스레드를 우선으로 해야하는 상황일 경우 사용
+
+- 같은 클래스의 데이터를 공유하는 rt / wt 클래스가 있다.
+rt / wt는 board의 데이터들을 상속받으며 각각이 스레드로 구성되어 있다.
+스레드를 동작하게 하기 위한 run메서드는 각각의 스레드에서 오버라이딩 되어있고
+오버라이딩 된 내용은 board에 있는 메서드들을 가져와 수정한 것이다.
+
+set( )을 가지고있는 wt 스레드에 오버라이딩으로 값을 주었고
+get( )을 가지고 있는 rw스레드는 받은 값을 출력할 수 있도록 오버라이딩을 했다.
+
+그런데 이때, wt가 먼저 실행되는것이 아니라, rw가 먼저 실행되면 어떻게 될까?
+
+set( )이 출력되기 전 get( )이 출력되면 아무런 데이터도 갖고있지 않은 get( )은
+디폴트값을 출력한다. 운이 좋아서 set( )이 먼저 출력된다면 상관없겠지만,
+스레드는 CPU가 각각의 상황에 맞춰 스레드의 순서를 배정해주기 때문에 
+항상 set( )이 먼저 출력되지 않는다. 
+
+- 이 때 set( )을 항상 먼저 출력될 수 있도록 처리해주는 것이 접근순서에 의한 동기화이다.
+- 공용으로 사용하는 데이터영역에서 수정한다.(board 영역)
+
+1. 먼저 boolean 변수를 하나 설정한다. 
+	private boolean isOk;
+
+2. boolean변수의 디폴트값은 false이다.
+wt( set( )영역) 에 값이 있을경우, true / 없으면 false가 될 수 있도록 boolean변수를 준다.
+
+3. if문을 이용해서, 만약에 set( )메서드에 출력할 내용이 있으면 true를 반환해,
+get( )이 잠시동안 동작을 멈추게 해 준다면 언제 출력하던지 set( )이 값을 먼저 가진 뒤
+get( )으로 출력해 낼 수 있을 것이다.
+
+if(!isOk) {
+	synchronized (this) {
+		try {
+			wait();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			}
+		}
+	}
+		
+		
+	return todayPost;
+
+ => 만약 isOk가 false가 아니면 => 
+	get( )는 wait( ); 상태에 들어가게 하고, set( )의 값을 retrun한다.
+
+ => wait( )는 runtime exception이 발생할 수 있으므로 반드시 try-catch를 해줘야 하고
+ => set( )과 동일한 데이터를 공유하고 있기 때문에 synchronized 블록으로 처리도 해준다.
+
+public void setTodayPost(String todayPost) {
+		
+	this.todayPost = todayPost;
+	isOk = true;
+	synchronized (this) {
+		notify();	
+		}
+	}
+	
+
+=> set( )의 파라미터 값을 그대로 받아서 board의 멤버변수값에 대입해줬고
+=> 다시 isOk = true로 만들어서 get( )이 false값을 가졌을 때 wait( )할 수 있도록 설정했다
+=> wait( )을 설정한 메서드가 깨어나려면 notify( )로 알림을 줘야 한다
+notify( )메서드를 구현하였고 notify() 도 synchronized 처리를 반드시 해줘야 한다
+ 안하면 runtime exception발생한다. 
