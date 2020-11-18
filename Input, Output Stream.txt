@@ -1,0 +1,202 @@
+< I/O >
+
+- 관리자권한으로 실행하여야 I/O에 접근할 수 있음
+- input / output (입력/출력)
+
+	 	<---------Input----------	
+            자바	            (Stream)		장치
+		----------Output-------->
+        
+        (프로그램) *기준	(모니터/키보드/마우스/파일/DB/네트워크/메모리/...)
+		
+- 왼쪽의 자바 프로그램이 기준이다*
+- 장치에서 프로그램으로 데이터가 들어올때 (입력 - input/ reader)
+- 프로그램에서 장치로 데이터를 내보낼 때 (출력 - output/ writer)
+- Input - 장치로부터 데이터를 읽어옴 ( reader )
+- Output - 프로그램에서 쓰여진 데이터를 장치로 보냄 ( writer )
+
+- Stream : 물이 한쪽방향으로만 흘러간다. 자료가 한쪽 방향으로 흘러가게 한다.
+	출발지~도착지. 프로그램이 도착지냐(input) 출발지냐(output)에 따라 Stream이 다름
+
+1. 전송되는 데이터의 크기로 분류(접미어가 ~Stream, ~er 로 끝난다)
+
+	~Stream : 바이트스트림. 모든 종류의 데이터 전송에 사용.
+		1바이트씩 전송 (멀티미디어 파일 전송 가능)
+	~er : 문자스트림. 2바이트씩 전송 (텍스트 위주로 사용, 효율이 좋음)
+
+
+
+<바이트 스트림>
+
+* 특별한 기능이 있는지 여부에 따라 분류 - 필터스트림(filterStream)
+* 장치와 직접적으로 연결이 되면 - 노드스트림
+
+
+
+- 노드스트림
+
+
+byte Stream에서 입력과 관련된 최상위 부모클래스 : InputStream
+byte Stream에서 출력과 관련된 최상위 부모클래스 : OutputStream
+InputStream / OutputStream은 추상클래스 -> 객체를 만들지 말 것
+입력과 출력을 동시에!
+ i/o 객체는 반드시 개발자가 메모리를 해제시켜야 함 -> 무조건 close()가 호출되어야함
+		
+		
+1. 사용하고자 하는 stream을 선언만 하기
+2. try-catch~finally 구조를 만들기
+3. finally 안에 try-catch
+4. finally 안에 있는 try에 close()호출, catch에 예외처리 하기
+5. 원 catch문에 예외처리 해줌
+6. 원 try를 코딩
+		
+	InputStream in = null;
+	OutputStream out = null;
+		
+	try {
+		in = new FileInputStream("C:"+File.separator+"test.jpg");
+	읽어올 때(input)는 파일이 존재해야하지만
+		
+		out = new FileOutputStream("C:"+File.separator+"test_copy.jpg");
+	쓸 때(output)는 파일 없어도 됨 (새로 만들어 줌)
+			
+		
+		int what = -1;
+	읽어 온 데이터를 저장할 변수
+	읽어올 파일이 더이상 없으면 -1을 출력하기 때문에 -1인 경우 값이 없으므로 출력을 끝냄.
+			
+	파일 처음부터 끝까지 데이터를 1바이트씩 읽어오는 Stream인데,
+	몇 번의 반복문을 사용해야하나? 파일마다 다 달라서 알 수 없다.
+	그래서 for가 아닌 while을 쓴다 (반복 횟수는 모르지만 반복 조건은 알고있기 때문)
+			
+		while(true){
+			what = in.read();
+			if(what == -1) {
+			
+			더이상 값이 없으면 -1을 줌
+			
+			break;
+			}
+				
+			out.write(what);
+		}
+			
+		System.out.println("file copy end");
+			
+	} catch (Exception e) {
+		e.printStackTrace();
+	} finally {
+		try {
+			if (in != null) {
+				in.close();
+	null이 아니면 가져올 값이 있다는 것
+	close를 해주지 않으면 계속 i/o에서 하드디스크를 붙잡고 있기 때문에
+	하드디스크는 여러사람이 접근하는데, 계속 i/o에서 파일을 붙잡고 있으면
+	다른사람이 사용할 수 없게된다. 따라서 , 작업이 끝나면 i/o를 close해서 놓아줘야 한다.
+	즉, 프로그램에서 자원을 사용한다고 연결(connection)을 하면 
+	반드시 리소스 반환(close)이 되어야 합니다.
+
+		}
+		if (out != null) {
+			out.close();
+		}
+	} catch (Exception e2) {
+				
+		e2.printStackTrace();
+	}
+}
+
+
+
+
+- 필터스트림(filterStream) *****
+
+
+-필터 스트림은 반드시 장치와 떨어져 있어야 한다.
+(노드스트림을 매개로 해서 장치와 이어져야 한다 - 이렇게 하기 위해서 필터 체이닝을 한다)
+(*필터체이닝 : 노드스트림과 필터스트림을 결합. 반드시 필터스트림을 프로그램과 가까운쪽으로)
+
+* 필터스트림이 직접적으로 장치와 연결되어 생기는 오류를 방지하기 위해서 
+   close( ) 시킬 때는 반드시 필터스트림 먼저 close 시켜야 한다. (in/out의 순서는 관계없음)
+
+try {
+	if(bis != null) {    / 필터스트림인 BufferedInputStream 을 먼저 close
+		bis.close();
+	}
+	
+	if (in != null) {    / 노드스트림 close
+		in.close();
+	}
+				
+	if(bos != null) {
+		bos.close();
+	}
+		
+	if(out != null) {
+		out.close();
+	}	
+				
+*전반적인 코드는 같지만, 필터스트림으로 만드는 객체가 하나씩 더 있어야하고,
+
+	in = new FileInputStream("C:"+File.separator+"test.jpg");
+	bis = new BufferedInputStream(in);
+	out = new FileOutputStream("C:"+File.separator+"test_copy2.jpg");
+	bos = new BufferedOutputStream(out);
+
+필터스트림의 파라미터 값으로 노트스트림 값을 넣어주기만 하면 필터 체이닝이 완료된다.
+필터체이닝 된 객체를 노트스트림으로 만든 객체 대신 사용하면 됨
+
+	while ((what = bis.read()) != -1) {
+		bos.write(what);
+		}
+
+노드스트림으로 만들어진 객체보다 전송속도가 훨씬 빠르다 
+(필터스트림에서 최대한 많은 데이터를 모아두고 있다가 전송이 시작되는 순간 입/출력시키기 때문)
+
+
+
+< 임의의 buffered i/o stream > *****
+
+- 크기가 2^n 개인 배열을 선언해 활용한다.
+- 2^n으로 해주는 것이 속도 최적화가 되어있어 가장 빠르다.
+- in으로 받는 데이터를 [n]개 만큼 채워서 out해주는 것을 반복 
+				->이동시간이 빨라져 속도가 줄어듦
+
+	byte[] arr = new byte[1024];
+	
+		while(true) {
+		int length = in.read(arr);
+
+	어떤 데이터를 넘겨주는지가 아닌 데이터 몇개를 넘겨주는지가 length값에 전달된다
+
+			if(length == -1) {
+
+	length에서 더이상 넘겨줄 데이터가 없다고 하면 -1 출력
+				break;
+			}
+				
+			out.write(arr, 0, length);
+
+	이제 값을 가지고 있는 것은 arr이고 arr의 0번째 인덱스가 가지고 있는 값부터 
+	마지막 인덱스를 넘겨받은 length까지의 값을 모두 출력하면 
+	in으로 입력받은 데이터를 전부 넘겨주는 것이 된다.
+
+		}
+
+ - 첫번째 방법으로 데이터를 복사한 경우 / 임의의 buffred Stream을 이용한 경우
+	          file copy end 28175  / Copy Complete 42
+    
+		=> 속도 차이가 현저한 것을 볼 수 있다!
+
+
+- BufferedIn/OutputStream 에서도 배열을 생성해 속도를 빠르게 만들어 줄 수 있지만,
+  BufferedIn/OutputStream 자체로도 이미 속도가 빠르기 때문에 잘 사용하지는 않는다. 
+
+
+
+<절대경로와 상대경로>
+
+ - 절대경로 : 드라이브까지 적어주는 것 "C:"+File.separator+"test.jpg"
+   모든 컴퓨터의 드라이브 구성이 같은 것은 아니기 때문에 상대경로를 사용한다.
+
+ - 상대경로 : .(현재경로) / ..(한단계 상위경로)
