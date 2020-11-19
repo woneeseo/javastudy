@@ -7,3 +7,48 @@ Index 3 out of bounds for length 3
 
 
 => 인덱스가 가질 수 있는 length를 벗어남 
+
+Exception in thread "main" java.util.InputMismatchException
+
+=> 자료형 값을 초과함
+
+
+Exception in thread "main" java.lang.NullPointerException
+
+==> 객체 값이 없는데 객체를 불러왔을 때, 불러올 값이 없다고 알려줌
+
+Exception in thread "main" java.lang.ClassCastException: 
+java.util.ArrayList cannot be cast to java.lang.String
+
+==> 형변환 에러
+
+Exception in thread "main" java.lang.StringIndexOutOfBoundsException: 
+String index out of range: 100
+
+==> 입력한 문자열의 인덱스를 초과한 값을 입력함
+
+Exception in thread "main" java.lang.ArithmeticException: / by zero
+
+==> 0으로 값을 나눠서 오류가 발생했다.
+
+Exception in thread "main" java.util.InputMismatchException
+
+==> 설정한 자료형과 맞지 않는 자료형의 자료를 입력했다
+
+
+Exception in thread "main" java.lang.NumberFormatException
+
+==> 입력받은 문자열을 숫자형으로 .parseInt(sNum)하는 코드를 짜놨는데
+숫자로 바꿀 수 없는 데이터를 입력받았을 때 생김 
+
+java.io.NotSerializableException
+
+==> 객체가 파일에 저장되기 위해서는 객체가 가진 값을 바이트단위로 쪼개서 넘겨줘야 하는데
+이 객체를 바이트 덩어리로 만들어주는게 Serializable 인터페이스를 구현하면 자동으로 마샬링 됨
+Serializable 인터페이스를 구현하지 않았을 때 생기는 에러메세지
+
+java.io.InvalidClassException: com.naver.MemberDTO; local class incompatible: 
+stream classdesc serialVersionUID = 1, local class serialVersionUID = 3
+
+==> 직렬화 된 데이터를 어딘가에 출력하고 출력된 데이터를 복구할 때(언마샬링)
+UID가 처음 직렬화 되었을 때와 복구할 때 UID가 다르면 발생하는 에러메세지

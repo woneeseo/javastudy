@@ -7,9 +7,169 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 
 public class Test {
+	
+	public void me77777() {
+		
+		OutputStream out = null;
+		ObjectOutputStream oos = null;
+		InputStream in = null;
+		ObjectInputStream ois = null;
+		
+		MemberDTO dto = new MemberDTO("m003", "choi", 22);
+		
+		try {
+			out = new FileOutputStream("aaa.txt");
+			oos = new ObjectOutputStream(out);
+			
+			oos.writeObject(dto);
+			
+			in = new FileInputStream("aaa.txt");
+			ois = new ObjectInputStream(in);
+			
+			Object obj = ois.readObject();
+			if(obj instanceof MemberDTO) {
+				MemberDTO mDTO = (MemberDTO)obj;
+				System.out.println(mDTO.getId());
+				System.out.println(mDTO.getName());
+				System.out.println(mDTO.getAge());
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(oos != null) {
+					oos.close();
+				}
+				if(out != null) {
+					out.close();
+				}
+				if(ois != null) {
+					ois.close();
+				}
+				if(in != null) {
+					in.close();
+				}
+				
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
+	
+	
+	public void me666() {
+		
+		MemberDTO dto = new MemberDTO("m002", "lee", 21);
+		
+		OutputStream out = null;
+		ObjectOutputStream oos = null;
+		InputStream in = null;
+		ObjectInputStream ois = null;
+		
+		try {
+			
+			out = new FileOutputStream("aaa.txt");
+			oos = new ObjectOutputStream(out);
+			// 필터체이닝 끝
+			
+			oos.writeObject(dto);
+			// writeObject를 써야 모든 자료형을 받을 수 있기 때문에
+			// 참조자료형인 dto를 출력하기 위해서는 writeObject를 쓴다
+			
+			in = new FileInputStream("aaa.txt");
+			ois = new ObjectInputStream(in);
+			// 필터체이닝 끝!
+			
+			Object obj = ois.readObject();
+			if(obj instanceof MemberDTO) {
+				 MemberDTO mDTO = (MemberDTO)obj;
+				 
+				 System.out.println(mDTO.getId());
+				 System.out.println(mDTO.getName());
+				 System.out.println(mDTO.getAge());
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(oos != null) {
+					oos.close();
+				}
+				if(out != null) {
+					out.close();
+				}
+				if(ois != null) {
+					ois.close();
+				}
+				if(in != null) {
+					in.close();
+				}
+				
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
+	
+	public void me6() {
+		
+		// object i/o 로 쓰고 읽기 
+		MemberDTO dto = new MemberDTO("m001", "kim", 10);
+		
+		OutputStream out = null;
+		ObjectOutputStream oos = null;
+		InputStream in = null;
+		ObjectInputStream ois = null;
+		
+		try {
+			out = new FileOutputStream("obj.txt");
+			oos = new ObjectOutputStream(out);
+			
+			oos.writeObject(dto);
+			System.out.println("::::::::::::::::");
+			
+			in = new FileInputStream("obj.txt");
+			ois = new ObjectInputStream(in);
+			
+			Object obj = ois.readObject();
+			if(obj instanceof MemberDTO) {
+				MemberDTO mDTO = (MemberDTO)obj;
+				System.out.println(mDTO.getId());
+				System.out.println(mDTO.getName());
+				System.out.println(mDTO.getAge());
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(oos != null) {
+					oos.close();
+				}
+				if(out != null) {
+					out.close();
+				}
+				if(ois != null) {
+					ois.close();
+				}
+				if(in != null) {
+					in.close();
+				}
+				
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
 	
 	
 	public void me201() {
@@ -560,7 +720,7 @@ public class Test {
 	
 	
 	
-	public void me6() {
+	public void me6666() {
 		
 		InputStream in = null;
 		OutputStream out = null;
