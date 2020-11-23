@@ -1,0 +1,270 @@
+< SQL >
+
+ 계정(User) / table / 함수(Function) / Sequence / index / trigger / (Stored) procedure = 객체
+ 
+ 생성(CREATE) 
+ 조회
+ 수정(alter)
+ 제거(drop) 
+
+ - CRUD : C - insert / R - read / U - update / D -delete  작업을 위주로 하게 됨
+ - DBMS = Data Base Management System (ex, 오라클 .. )
+
+
+
+< User 생성하기 >
+
+ - 계정을 생성 할 때는 일정 자격이 있는 계정에서 만든다. (System / sys )
+ - 계정을 만드는 SQL문 : CREATE USER (ID) IDENTIFIED BY (Password) ; 
+ - 명령어는 반드시 대문자로 써야 함! 
+ - GRANT : 새로 만들어진 계정은 SQL 접속등 권한이 없으므로 권한을 부여해줘야 함
+	GRANT CONNECT, RESOURCE, DBA TO (새로 만든 user) ;
+ - REVOKE : 부여해 준 권한을 다 취소함
+	REVOKE CONNECT, RESOURCE, DBA FROM (새로 만든 user) ;
+
+
+
+< Table 생성하기 >
+
+ - CREATE 명령문을 이용해 생성한다.
+
+	CREATE TABLE member(
+ 	2  mid VARCHAR2(6),   ----> 첫번째 칼럼 (1열) / 자료형 (할당할 바이트 크기)
+  	3  name VARCHAR2(15), ----> 두번째 칼럼 (2열) / 자료형 (할당할 바이트 크기)
+  	4  job VARCHAR2(3), ----> 세번째 칼럼(3열) / 자료형 (할당할 바이트 크기)
+  	5  birth DATE ----> 네번째 칼럼(4열) / 자료형 (할당할 바이트 크기)
+ 	6  );
+
+ - SQL은 세미콜론을 쓰지 않는 이상은 엔터를 쳐도 SQL문이 끝나지 않는다.
+ - 영어는 1바이트당 한글자, 한글은 3바이트당 한글자를 차지한다. 
+ - SQL로 생성된 객체는 구분을 하기 위해 접두어를 써주는 것이 일반적이다.
+	ex) tbl_member (이 객체는 table객체이고, 이름을 member로 갖는 table이다.)
+ - table을 삭제할 때도 똑같이 DROP 명령어를 쓴다 
+	DROP TABLE member ;
+
+ - desc table이름 : table의 모습을 확인 할 수 있음 (SQL명령어이기 때문에 ; 없어도 됨)
+
+	(자료입력 예제)
+
+	MID          NAME                           JOB    BIRTH
+	------------ ------------------------------ ------ --------
+	m001
+	m002         kim
+	m003         lee                                 a
+	m004         park                               b      00/12/17
+	M005         kang                               a      90/10/03
+
+ - SQL문 입력시에는 대/소문자를 구분하지 않지만, 데이터 입력시에는 대/소문자를 구분 함.
+ - 숫자를 제외한 모든 자료형은 '  ' (무조건 작은 따옴표에 넣어서 입력)
+
+ 	INSERT INTO member (컬럼1, 컬럼2, ... ) VALUES ('값1', '값2', 숫자값1, ... );
+ 
+ - 테이블의 컬럼 순서를 다 알고있고, 테이블에 모든 컬럼값을 빠짐없이 넣는다고 할 때, 
+	
+	INSERT INTO member VALUES ('컬럼1값', '컬럼2값', 컬럼3값(숫자값), ... );
+
+ - SELECT * FROM 테이블명 ; => 테이블에 저장된 모든 자료값을 볼 수 있음.
+ - SELECT * FROM 테이블명 WHERE NAME IS NULL; 
+	=> 테이블에서 특정컬럼값이 null인 테이터를 모두 가져와라
+	
+	SQL> SELECT * FROM member WHERE mid = 'm002';
+
+	출력결과)
+		MID          NAME                           JOB    BIRTH
+		------------ ----------------------------- ------ --------
+		m002         kim                                c    88/05/05
+
+
+ - ROLLBACK : INSERT한 모든 자료의 저장을 취소함. 
+
+	SQL> ROLLBACK;
+	Rollback complete.  => 롤백으로 테이블 내 모든 자료 입력 취소!
+	SQL> SELECT * FROM member; => member테이블의 모든(*)자료를 불러오기(SELECT)
+	no rows selected => 롤백되어 입력된 자료가 없어졌으므로 출력되는 자료가 없음
+	( 마지막 commit 직전까지 rollback 됨)
+
+ - UPDATE : 자료값을 변경
+	UPDATE member SET mid = 'M005' WHERE mid = 'm005';
+	           -테이블명-    -컬럼-  -변경할값-      -컬럼-  -변경되어야 할 값-
+	==> mid의 값이 'm005'인 값을 찾아서 'M005'로 변경하여라.
+	UPDATE member SET name = 'choi' WHERE mid = 'm001';
+
+
+	UPDATE member SET job = 'd' , birth = '1888-05-03' WHERE mid = 'm001';
+	==> 여러개의 자료값을 한번에 수정하고 싶을 때는, 컴마를 이용한다. 
+
+ - DML + WHERE 절 : 특정한 조건으로 자료값을 불러오게 할 수 있음
+     ex)	WHERE mid = 'm001'; : mid값이 m001인 자료의 자료값을 가져오기
+	WHERE mid > 'm001'; : mid값이 m001보다 큰 자료의 자료값을 가져오기
+
+ - DELETE FROM 테이블명 WHERE 컬럼 = '자료값'; 
+     ex)	DELETE FROM member WHERE name = 'park';
+	
+	DELETE FROM member WHERE job = 'a';
+
+	결과)	MID          NAME                           JOB    BIRTH
+		------------ ------------------------------ ------ --------
+		m001         choi                              d     88/05/03
+		m002         kim                               c     88/05/05
+		m004         park                              b     00/12/17
+
+
+< SQL 명령어 >
+
+====> 객체를 생성, 수정, 삭제하는 SQL문--> DDL(Data Definition Language)
+				     CREATE / DROP / ALTER
+====> 보안적인 요소(데이터 제어)를 담고있는 SQL문--> DCL(Data Control Language)
+					GRANT / REVOKE 
+
+====> DML(Data Management Language) : INSERT / SELECT / UPDATE / DELETE *****
+
+====> TLC : COMMIT / ROLLBACK ******
+
+
+
+
+
+<SQL PLUS 명령어>
+ - conn User/Password : exit 하지 않고 바로 User를 변경할 수 있음
+
+
+
+
+
+< 이클립스에서 오라클 연동 작업을 하기 위해서 준비할 것>
+
+1. 클래스패스 확인 
+	window -> preferences -> java -> build path -> class path
+2. D:\oraclexe\app\oracle\product\11.2.0\server\jdbc\lib
+	에서 ojdbc6 복사 -> C:\Program Files\Java\jdk1.8.0_261\jre\lib\ext 붙여넣기
+3. cmd에서 작업한 내용을 이클립스에서 하려면 connection이 필요함.
+(커맨드창에서 작업한 내용을 이클립스에서도 작업할 수 있게 해줌)
+	window -> show view -> data management -> data source explorer
+	-> database connections 에서 마우스 우클릭해서 new
+	-> oracle 선택 후 next -> Drivers에서 나침판 모양 클릭
+	-> Specify 어쩌구에서 세가지 탭을 전부 완성하고 ok 누를 것
+	-> name/type 에서는 oracle thin dirver 11 선택
+	-> JAR List에서는  아까 복붙한 ojdbc6을 찾아 입력해줌
+	-> Properties 에서 커넥션 url값 jdbc:oracle:thin:@localhost:1521:xe 
+		           데이터베이스 네임 : xe 로 수정
+	    비밀번호, id 입력하고 next
+	-> ping test 한번 하고 이상 없으면 finish 
+4. 이클립스 실행하면 무조건 오라클 connect 해놓고 시작할 것 
+
+
+
+
+< 이클립스에서 sql 사용하기 >
+
+* ; (세미콜론) 을 사용하지 않는다.
+
+- alias : 컬럼에 별명 넣기 (컬럼 + as + 별명 / 컬럼 + 별명 둘 다 가능 / 섞어서 해도 됨)
+
+SELECT name as 이름, aget as 나이 FROM test
+
+SELECT name 이름, aget 나이 FROM test
+
+SELECT name as 이름, aget 나이 FROM test
+
+- DISTINCT : 중복 없이 결과값 출력하기 
+
+- ORDER BY : 자료값을 오름차순(ASC) 이나 내림차순(DESC) 으로 정렬할 수 있다
+
+	SELECT * FROM test ORDER BY age ASC (나이를 기준으로 오름차순 정렬)
+	SELECT * FROM test ORDER BY age DESC (나이를 기준으로 내림차순 정렬)
+
+
+	test 테이블의 모든 레코드들을 모든 컬럼이 포함되게 조회하되 
+	이름을 기준으로 내림차순으로 정렬하시오.
+	만약 이름이 같으면 나이가 많은 사람이 우선이 되도록 정렬하시오.
+
+	SELECT * FROM test ORDER BY name DESC, age DESC
+	=> 여러개의 정렬 조건을 원한다면 , 를 구분자로 해서 적어주면 됨
+	=> name의 항목이 같으면, age의 항목까지 비교해서 정렬을 함
+
+- 오라클에서 NULL 값을 호출하고 싶으면 IS NULL / IS NOT NULL 을 쓴다
+
+	name이 null인 레코드 정보를 조회하시오. 단, 칼럼은 name만 있음
+	SELECT name as 이름, age 나이 FROM test WHERE name IS NULL
+
+	name이 null이 아닌 레코드 정보를 조회하시오. 
+	단, 레코드에 대한 정렬은 AGE가 증가되게 정렬하고
+	만약 age가 같으면 name을 내림차순으로 정렬하시오.
+	SELECT * FROM test WHERE name IS NOT NULL ORDER BY age ASC, name DESC
+
+- WHERE 절에서는 비교연산자를 사용한 조건으로 조회가 가능하다.
+- OR : ~이거나, ~인 레코드를 조회하고 싶을 때 사용할 수 있음
+
+	test 테이블에서 age가 20이거나 23이거나 40인 레코드를 조회하시오.
+	SELECT * FROM test WHERE aget = 20 OR aget = 23 OR aget = 40
+
+- IN : OR의 조건이 많을 경우, OR을 무한히 쓰면 식이 너무 길어지고 번거로우므로
+			IN(찾고 싶은 자료의 값) 의 형태로 사용한다.
+
+	test의 age가 20이거나 23이거나 40이거나 43이거나 61이거나 77인 레코드 조회
+	SELECT * FROM test WHERE age IN(20, 23, 40, 43, 61, 77)
+
+- IN : ~이거나 ~인 / NOT IN : ~가 아닌
+
+	test의 age가 20이거나 23이거나 40이거나 43이거나 61이거나 77이 아닌 레코드 조회
+	SELECT * FROM test WHERE age NOT IN(20, 23, 40, 43, 61, 77)
+
+- AND : ~이고~ 
+
+	name이 kim이고 age가 33인 레코드를 조회하시오
+	SELECT * FROM test WHERE name = 'kim' AND aget = 33
+
+	test 테이블에서 age가 25보다 크고 47보다 작은 레코드를 조회하시오.
+	SELECT * FROM test WHERE aget>25 AND aget<47
+
+	test 테이블에서 age가 25보다 크거나 같고 age가 47보다 작거나 같은 레코드 조회
+	SELECT * FROM test WHERE aget >= 25 AND aget <= 47
+
+- BETWEEN a AND b : ~이고~ ( a>= age =<b )
+	== SELECT * FROM test WHERE aget BETWEEN 25 AND 47
+
+- LIKE : 포함되어있는 자료의 일부만 알고있을 때, 레코드를 검색할 수 있게 해줌
+
+
+  * 정확한 글자수와 일부 글자의 위치를 알고있을 때 : _ (언더바)를 사용해서 글자수와
+					알고있는 글자의 위치를 정해서 조회한다
+SELECT * FROM test WHERE name LIKE 'k__' 
+	: 글자수가 3글자였고, k가 맨 앞에 위치해있는 name레코드 조회
+SELECT * FROM test WHERE name LIKE '_e___' 
+	: 글자수가 5글자였고, e가 두번째자리에 위치해있는 name레코드 조회
+SELECT * FROM test WHERE name LIKE '_e_' 
+	: 글자수가 3글자였고, ㄷe가 두번째자리에 위지해있는 name레코드 조회
+
+
+  * 글자수가 몇자인지 모르지만 특정 글자로 끝나는 것은 알고있을 때 : %를 사용한다
+
+SELECT * FROM test WHERE name LIKE '%o'
+	: 글자수는 모르지만 마지막 글자가 o로 끝나는 name레코드 조회
+
+  * 글자수가 몇자인지도 모르고, 특정 글자가 어디에 위치했는지도 모를 때 :
+
+SELECT * FROM test WHERE name LIKE '%초%'
+	: 글자수도 모르겠고 특정 글자가 어느 자리에 위치했는지도 모르지만 
+	이름에 '초'라는 글자가 들어갔다는 것만 알고있을 때, '초'를 가진 name레코드 모두 조회
+SELECT * FROM test WHERE name LIKE '%l%'
+	: 글자수도 모르고 특정 글자의 위치도 모를 때, 'l'이 포함된 name레코드를 모두 조회
+
+
+** 이클립스에서 SELECT를 호출하면 항상 표 형식으로 출력된다. 
+
+- 서브쿼리 : 테이블명 대신에 SELECT문 넣기, SELECT문에 SELECT문 넣기
+
+SELECT * FROM (SELECT * FROM test WHERE age > 20) WHERE name LIKE '%k%'
+age가 20보다 많은 레코드값을 가져와서 그 안에서 name에 k가 들어가는 레코드를 조회
+
+SELECT * FROM 
+(SELECT rownum rnum, name, aget FROM 
+(SELECT name, aget FROM test ORDER BY aget ASC))
+WHERE rnum BETWEEN 2 AND 4
+
+test테이블의 age값을 오름차순으로 정렬한 뒤, 오름차순으로 정렬 된 rownum에
+별칭을 붙여주고, 그 rownum값이 2~4 사이의 값을 가지는 레코드를 조회
+
+**  ORDER BY는 서브쿼리로 사용할 수 없기 때문에 SELECT문으로 한번 더 묶어서 사용한다. 
+**  SELECT를 실행할 때 마다 rownum은 새로 생겨나고, 
+	ORDER BY를 실행하면 ORDER BY의 조건에 따라 rownum의 값이 바뀐다.
