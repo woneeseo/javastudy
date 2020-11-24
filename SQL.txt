@@ -268,3 +268,109 @@ test테이블의 age값을 오름차순으로 정렬한 뒤, 오름차순으로 
 **  ORDER BY는 서브쿼리로 사용할 수 없기 때문에 SELECT문으로 한번 더 묶어서 사용한다. 
 **  SELECT를 실행할 때 마다 rownum은 새로 생겨나고, 
 	ORDER BY를 실행하면 ORDER BY의 조건에 따라 rownum의 값이 바뀐다.
+
+
+- ALTER : 데이터 수정
+
+< 기본키와 외래키 >
+
+
+** 기본키 = 주키 = primary key = pk
+
+
+ - DB에 데이터를 저장한 상태에서 컬럼 하나만을 이용해서 특정 레코드를데이터를 조회하고 싶을 때 
+   어떻게 해야 할까?
+		--> 기본키 = 주키 = primary key = pk 가 필요하다
+
+	ALTER TABLE member2 ADD CONSTRAINT pk_member2_id PRIMARY KEY(id)
+	
+	--> member2 테이블에 제약조건을 추가한다(ADD CONSTRAINT)
+	--> 어떤 제약조건? memeber2 테이블의 primary key로 id를 지정하겠다
+
+	< 하나의 컬럼이 기본키로 지정되면 두가지의 제약조건이 발생한다. >
+	
+	--> UNIQUE 제약조건 :
+	--> 기본키를 설정해두면 자동으로 키본키에 대한 중복을 허용하지 않는다. 
+	--> (id가 같은 값은 데이터 입력이 되지 않음)
+	
+	--> NOT NULL 제약조건 : 
+	--> 기본키를 설정하면 기본키로 설정 된 칼럼에 대해 절대로 NULL값을 입력할 수 없음
+	
+
+	CREATE TABLE test2(
+	id VARCHAR2(6) PRIMARY KEY,
+	age NUMBER(3)
+	)
+	
+	--> 기본키 설정하는 두번째 방법 : 테이블 생성할 때 기본키로 쓰고 싶은 칼럼에
+				   곧바로 PRIMARY KEY 설정을 해준다
+
+
+	CREATE TABLE test3(
+	id VARCHAR2(6),
+	age NUMBER(3)
+	CONSTRAINT pk_test3_id PRIMARY KEY(id)
+	)
+
+	--> 기본키 설정하는 세번째 방법 : 태이블 생성할 때, 컬럼 입력 후 맨 마지막 줄에
+				   기본키로 쓰겠다는 제약조건 키워드를 걸어준다.
+
+
+
+** 외래키 = foreign key = fk
+
+
+	--> 선택지 안에서만 선택해야 하는데 선택지 외에서 선택하려는 경우가 있기 때문에
+	--> 이것을 방지하고자 만듦
+
+	--> 참조 무결성 제약조건 : 외래키 테이블 (부모 테이블)에서 한정해 둔 레코드 값 외의
+			       레코드를 넣으면 ORA-02291: integrity constraint 에러발생
+	
+	--> 외래키는 부모테이블인 외래키 테이블을 먼저 만들어야 함
+	--> 외래키(foreign key)가 되려면? 반드시 부모 테이블의 기본키이어야 한다.
+
+	--> 사용하고자 하는 테이블의 부모테이블을 만든다.
+	CREATE TABLE depart(
+	edep VARCHAR2(9)
+	)
+
+	INSERT INTO depart VALUES ('인사부')
+	INSERT INTO depart VALUES ('홍보부')
+	INSERT INTO depart VALUES ('연구실')
+	INSERT INTO depart VALUES ('영업부')
+
+	--> 외래키로 쓸 레코드들을 입력해준다.
+	--> 이제 위의 네가지를 제외한 레코드를 가지고 있는 레코드는 입력되지 않는다. 
+
+	--> 외래키로 참조 할 컬럼을 기본키로 설정한다.
+	ALTER TABLE depart ADD CONSTRAINT pk_depart_edep PRIMARY KEY(edep)
+
+
+	--> 자식 테이블을 생성한다
+
+
+	--> 외래키 설정하기 : 어느 테이블에서 사용할 것인가? (자식테이블 employee)
+	ALTER TABLE employee ADD CONSTRAINT fk_employee_edep 
+				FOREIGN KEY(edep) REFERENCES depart(edep)
+
+	(외래키를 사용하고 싶은 것은 자식 테이블인 emlpoyee이므로, 
+	외래키를 사용하고자 하는 자식테이블의 emlpoyee 내용을 alter한다)
+	
+	--> FOREIGN KEY(edep) 어느 칼럼에서 참조할 것인가? employee의 edep 컬럼 
+
+	--> REFERENCES depart(edep) 어느 테이블의 어떤 칼럼을 참조할 것인가?
+						       : depart의 edep칼럼
+
+	--> employee 테이블에 아래 레코드를 입력하면 
+	
+	INSERT INTO employee (eid, ename, edep) VALUES ('e005', 'jung','비서실')
+	
+	ORA-02291: integrity constraint 발생 (입력이 안 됨)
+	왜? 부모테이블의 데이터에 '비서실'이 없기 때문에, 참조 무결성 제약조건에 위반됨
+
+ ** 부모 테이블에 데이터를 집어넣기 전에 자식테이블을 만들어 데이터를 먼저 집어넣으면
+	설정되지 않아 오류가 발생한다. 
+
+ ** 외래키의 데이터에는 null 값이 들어갈 수 있음. / 외래키의 데이터는 중복이 가능함
+
+ 

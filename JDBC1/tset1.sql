@@ -207,3 +207,191 @@ SELECT rownum num, name, aget FROM
 (SELECT name, aget FROM test WHERE aget > 30 ORDER BY name DESC)
 ) WHERE name LIKE '%k%'
 
+
+DB에 데이터를 저장한 상태에서 컬럼 하나만을 이용해서 
+특정 레코드를데이터를 조회하고 싶을 때 어떻게 해야 할까?
+--> 기본키 = 주키 = primary key = pk 가 필요하다
+
+CREATE TABLE member2(
+id VARCHAR2(6),
+name VARCHAR2(6),
+age NUMBER(3)
+)
+
+ALTER TABLE member2 ADD CONSTRAINT pk_member2_id PRIMARY KEY(id)
+--> member2 테이블에 제약조건을 추가한다(ADD CONSTRAINT)
+--> 어떤 제약조건? memeber2 테이블의 primary key로 id를 지정하겠다
+--> 기본키를 설정해두면 자동으로 키본키에 대한 중복을 허용하지 않는다. 
+--> (id가 같은 값은 데이터 입력이 되지 않음) : UNIQUE 제약조건
+
+INSERT INTO member2 VALUES ('m001','kim', 30)
+INSERT INTO member2 VALUES ('m002','kim', 30)
+INSERT INTO member2 VALUES ('m003','kim', 30)
+INSERT INTO member2 VALUES ('m004','kim', 30)
+INSERT INTO member2 VALUES ('m005','kim', 30)
+INSERT INTO member2 VALUES ('m006','kim', 30)
+INSERT INTO member2 VALUES ('m007','kim', 30)
+
+INSERT INTO member2 (id, name, age) VALUES ('m008','lee', 44)
+--> 기본키를 설정하면 기본키로 설정 된 칼럼에 대해 절대로 NULL값을 입력할 수 없음
+--> NOT NULL 제약조건 
+
+COMMIT
+
+DELETE FROM member2
+
+COMMIT
+
+SELECT * FROM member2 WHERE id = 'm004'
+--> 특정테이블에서 특정 레코드만 하나의 컬럼을 이용해서 자료조회가 가능
+
+SELECT * FROM member
+
+// member테이블의 mid컬럼을 주키(=기본키=pk=primary_key)로 설정하시오
+ALTER TABLE member ADD CONSTRAINT pk_member_mid PRIMARY KEY(mid)
+
+CREATE TABLE test2(
+id VARCHAR2(6) PRIMARY KEY,
+age NUMBER(3)
+)
+
+CREATE TABLE test3(
+id VARCHAR2(6),
+age NUMBER(3)
+CONSTRAINT pk_test3_id PRIMARY KEY(id)
+)
+
+
+--> 외래키 = foreign key = fk
+--> 선택지 안에서만 선택해야 하는데 선택지 외에서 선택하려는 경우가 있기 때문에
+--> 이것을 방지하고자 만듦
+--> 외래키는 부모테이블인 외래키 테이블을 먼저 만들어야 함
+
+
+CREATE TABLE depart(
+--> 사용하고자 하는 테이블의 부모테이블을 만든다.
+edep VARCHAR2(9)
+)
+
+ALTER TABLE depart ADD CONSTRAINT pk_depart_edep PRIMARY KEY(edep)
+--> 외래키(foreign key)가 되려면? 반드시 부모 테이블의 기본키이어야 한다.
+
+INSERT INTO depart VALUES ('인사부')
+INSERT INTO depart VALUES ('홍보부')
+INSERT INTO depart VALUES ('연구실')
+INSERT INTO depart VALUES ('영업부')
+
+--> 외래키로 쓸 레코드들을 입력해준다.
+--> 이제 위의 네가지를 제외한 레코드를 가지고 있는 레코드는 입력되지 않는다. 
+
+--> 자식 테이블을 만들어준다.
+CREATE TABLE employee(
+eid VARCHAR2(6),
+ename VARCHAR2(6),
+edep VARCHAR2(9)
+)
+
+ALTER TABLE employee ADD CONSTRAINT k_employee_eid PRIMARY KEY(eid)
+
+
+--> 외래키 설정하기 : 어느 테이블에서 사용할 것인가? (자식테이블 employee)
+ALTER TABLE employee ADD CONSTRAINT fk_employee_edep FOREIGN KEY(edep) REFERENCES depart(edep)
+--> 외래키를 사용하고자 하는 자식테이블의 내용을 alter한다 
+--> FOREIGN KEY(edep) 어느 칼럼에서 참조할 것인가? 
+--> REFERENCES depart(edep) 어느 테이블의 어떤 칼럼을 참조할 것인가?
+
+
+--> edep에는 인사부/홍보부/연구실/영업부만 들어갈 수 있음
+INSERT INTO employee (eid, ename, edep) VALUES ('e001', 'kim','인사부')
+INSERT INTO employee (eid, ename, edep) VALUES ('e002', 'lee','홍보부')
+INSERT INTO employee (eid, ename, edep) VALUES ('e003', 'park','연구실')
+INSERT INTO employee (eid, ename, edep) VALUES ('e004', 'choi','영업부')
+
+--> 아래의 레코드를 입력하면 입력되지 않는다.
+INSERT INTO employee (eid, ename, edep) VALUES ('e005', 'jung','비서실')
+--> 왜? 부모테이블인 depart는 '비서실'이라는 데이터가 없기 때문에 참조무결성 제약조건에 위반된다.
+
+SELECT * FROM employee
+
+COMMIT
+
+INSERT INTO employee (eid, ename) VALUES ('e006','kim') 
+
+============================================================================
+
+
+CREATE TABLE menu(
+menu VARCHAR2(12)
+)
+
+ALTER TABLE menu ADD CONSTRAINT pk_menu_menu PRIMARY KEY(menu)
+
+INSERT INTO menu VALUES ('떡볶이')
+INSERT INTO menu VALUES ('라면')
+INSERT INTO menu VALUES ('오뎅')
+INSERT INTO menu VALUES ('볶음밥')
+
+
+
+CREATE TABLE odmenu(
+tableno NUMBER(2),
+menu VARCHAR2(12),
+price NUMBER(5)
+)
+
+ALTER TABLE odmenu ADD CONSTRAINT pk_odmenu_talbeno PRIMARY KEY(tableno)
+
+ALTER TABLE odmenu ADD CONSTRAINT fk_odmenu_menu FOREIGN KEY(menu) REFERENCES menu(menu)
+
+SELECT * FROM odmenu
+
+INSERT INTO odmenu VALUES (1, '떡볶이', 3500)
+
+INSERT INTO odmenu VALUES (2, '김밥', 2000) --> 입력안됨 : 참조무결성 위배
+
+INSERT INTO odmenu VALUES (1, '오뎅', 2000) --> 입력안됨 : 기본키 중복
+
+INSERT INTO odmenu VALUES (3, '볶음밥', 5500)
+
+INSERT INTO odmenu VALUES (2, '라면', 4500)
+
+SELECT tableno as 번호, menu as 메뉴, price as 가격 FROM odmenu
+
+
+=========================================================================================
+
+
+CREATE TABLE depa(
+dep VARCHAR2(12),
+floor NUMBER(2)
+)
+
+ALTER TABLE depa ADD CONSTRAINT pk_depa_dep PRIMARY KEY(dep)
+
+INSERT INTO depa VALUES ('인사부' , 2)
+INSERT INTO depa VALUES ('총무부' , 5)
+INSERT INTO depa VALUES ('영업부' , 2)
+INSERT INTO depa VALUES ('교육실' , 2)
+
+SELECT * FROM depa
+
+CREATE TABLE erp(
+eid VARCHAR2(6),
+ename VARCHAR2(12),
+dep VARCHAR2(12)
+)
+
+ALTER TABLE erp ADD CONSTRAINT pk_erp_eid PRIMARY KEY(eid)
+ALTER TABLE erp ADD CONSTRAINT fk_erp_dep FOREIGN KEY(dep) REFERENCES depa(dep)
+--> 기본키 != 외래키 : 비식별관계 (대부분의 테이블은 비식별관계로 형성된다)
+--> 기본키 == 외래키 : 식별관계 
+
+INSERT INTO erp VALUES ('e001', '김일식', '교육실')
+INSERT INTO erp VALUES ('e002', '박파랑', '교육실') --> 외래키는 중복 가능!
+INSERT INTO erp (eid, ename) VALUES ('e003', '김두식') --> 외래키는 null값도 가능함
+INSERT INTO erp (eid, dep) VALUES ('e004', '영업부')
+INSERT INTO erp VALUES ('e005', '김주도', '행정부') --> 부모테이블에 없는 데이터라 안들어감.
+
+SELECT * FROM erp
+
+SELECT * FROM member ORDER BY mid ASC
