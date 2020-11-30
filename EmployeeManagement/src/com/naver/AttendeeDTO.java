@@ -8,14 +8,14 @@ public class AttendeeDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String id;
 	private String name;
-	private Date intime;
-	private Date exittime;
+	private String intime;
+	private String exittime;
 	
 	public AttendeeDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public AttendeeDTO(String id, String name, Date intime, Date exittime) {
+	public AttendeeDTO(String id, String name, String intime, String exittime) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -39,19 +39,19 @@ public class AttendeeDTO implements Serializable {
 		this.name = name;
 	}
 
-	public Date getIntime() {
+	public String getIntime() {
 		return intime;
 	}
 
-	public void setIntime(Date intime) {
+	public void setIntime(String intime) {
 		this.intime = intime;
 	}
 
-	public Date getExittime() {
+	public String getExittime() {
 		return exittime;
 	}
 
-	public void setExittime(Date exittime) {
+	public void setExittime(String exittime) {
 		this.exittime = exittime;
 	}
 
@@ -86,7 +86,7 @@ public class AttendeeDTO implements Serializable {
 
 	@Override
 	public String toString() {
-		return "AttendeeDTO [id=" + id + ", name=" + name + ", intime=" + intime + ", exittime=" + exittime + "]";
+		return "["+ "사원 id : " + id + " / 이름 : " + name + " / 출근시간 : " + intime +"]" ;
 	}
 	
 	

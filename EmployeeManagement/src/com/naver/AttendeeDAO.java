@@ -5,7 +5,9 @@ import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class AttendeeDAO {
 	
@@ -25,12 +27,65 @@ public class AttendeeDAO {
 		
 	}
 	
+	public List<AttendeeDTO> attendeeCheck() {
+		List<AttendeeDTO> list = new ArrayList<AttendeeDTO>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select *from attendee";
+		
+		try {
+			conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
+			pstmt = conn.prepareStatement(sql);		
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				String id = rs.getString("id");
+				String name = rs.getString("name");
+				String intime = rs.getString("intime");
+				String exittime = rs.getString("exittime");
+				AttendeeDTO dto = new AttendeeDTO(id, name, intime, exittime);
+				list.add(dto);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			closeAll(rs, pstmt, conn);
+		}
+		
+		
+		return list;
+		
+	}
+	
+	public void deleteAttendee() {
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = "TRUNCATE TABLE attendee";
+		
+		try {
+			conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			
+			closeAll(null, pstmt, conn);
+		}
+	}
+	
 	public AttendeeDTO selectById(String id) {
 		
 		AttendeeDTO dto = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		String sql = "SELECT * FROM attendee WHERE is = ? ";
+		String sql = "SELECT * FROM attendee WHERE id = ? ";
 		ResultSet rs = null;
 		
 		try {
@@ -44,8 +99,8 @@ public class AttendeeDAO {
 			if (rs.next()) {
 				
 				String name = rs.getString("name");
-				Date intime = rs.getDate("intime");
-				Date exittime = rs.getDate("exittime");
+				String intime = rs.getString("intime");
+				String exittime = rs.getString("exittime");
 				
 				dto = new AttendeeDTO(id, name, intime, exittime);
 			}
@@ -60,29 +115,28 @@ public class AttendeeDAO {
 		return dto;
 	}
 	
-	public void deletExittime(String id) {
-		
+	public void exittime(AttendeeDTO dto) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		String sql = "UPDATE attendee SET exittime = null WHERE id = ? ";
+		ResultSet rs = null;
+		String sql = "update attendee set exittime = ?  where id = ?";
 		
 		try {
 			conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, id);
+			pstmt.setString(1, dto.getExittime());
+			pstmt.setString(2, dto.getId());
 			
 			pstmt.executeUpdate();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			
-			closeAll(null, pstmt, conn);
+		}finally {
+			closeAll(rs, pstmt, conn);
 		}
 		
 	}
-	
 	
 	
 	public void updateExittime(AttendeeDTO dto) {
@@ -95,7 +149,7 @@ public class AttendeeDAO {
 			conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setDate(1, dto.getExittime());
+			pstmt.setString(1, dto.getExittime());
 			pstmt.setString(2, dto.getId());
 			
 			pstmt.executeUpdate();
@@ -122,13 +176,15 @@ public class AttendeeDAO {
 			
 			pstmt.setString(1, dto.getId());
 			pstmt.setString(2, dto.getName());
-			pstmt.setDate(3, dto.getIntime());
+			pstmt.setString(3, dto.getIntime());
 			
-			pstmt.executeUpdate();
-			
+			System.out.println("출근 시간을 등록합니다.");
+			pstmt.execute();
+			System.out.println("출근시간이 등록되었습니다.");
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("이미 출근 한 사원입니다.");
+			
 		} finally {
 			
 			closeAll(null, pstmt, conn);
