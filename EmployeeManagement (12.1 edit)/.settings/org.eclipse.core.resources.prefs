@@ -1,0 +1,13 @@
+eclipse.preferences.version=1
+encoding//src/com/naver=UTF-8
+encoding//src/com/naver/AttendeeDAO.java=MS949
+encoding//src/com/naver/AttendeeDeleteCommand.java=MS949
+encoding//src/com/naver/AttendeeExitCommand.java=MS949
+encoding//src/com/naver/AttendeeInsertCommand.java=MS949
+encoding//src/com/naver/AttendeeSelectCommand.java=UTF-8
+encoding//src/com/naver/EmployeeDAO.java=MS949
+encoding//src/com/naver/EmployeeDeleteCommand.java=MS949
+encoding//src/com/naver/EmployeeInsertCommand.java=MS949
+encoding//src/com/naver/EmployeeSelectCommand.java=MS949
+encoding//src/com/naver/EmployeeUpdateCommand.java=MS949
+encoding/<project>=MS949
