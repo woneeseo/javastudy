@@ -1,7 +1,8 @@
 package kr.co.ezen;
 
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import com.naver.Command;
@@ -20,27 +21,33 @@ public class MainEx {
 	public static void main(String[] args) {
 		
 		Scanner sc = new Scanner(System.in);
-
-		List<Command> coms = new ArrayList<Command>();
+		// 같은 프로그램의 main을 map으로 구성함
+		Map<Integer, Command> map = new HashMap<Integer, Command>();
 		
-		coms.add(new AttendeeInsertCommand());
-		coms.add(new AttendeeExitCommand());
-		coms.add(new AttendeeSelectCommand());
-		coms.add(new AttendeeDeleteCommand());
-		coms.add(new EmployeeInsertCommand());
-		coms.add(new EmployeeSelectCommand());
-		coms.add(new EmployeeUpdateCommand());
-		coms.add(new EmployeeDeleteCommand());
-		coms.add(new ProgramCloseCommand());
+		map.put(0, new AttendeeInsertCommand());
+		map.put(1, new AttendeeExitCommand());
+		map.put(2, new AttendeeSelectCommand());
+		map.put(3, new AttendeeDeleteCommand());
+		
+		map.put(4, new EmployeeInsertCommand());
+		map.put(5, new EmployeeUpdateCommand());
+		map.put(6, new EmployeeSelectCommand());
+		map.put(7, new EmployeeDeleteCommand());
+		
+		map.put(8, new ProgramCloseCommand());
+		
 		
 		boolean isTrue = true;
+		
 		
 		while (isTrue) {
 			System.out.println();
 			System.out.println("====출퇴근 등록 시스템====");
-			for(int i=0; i<coms.size(); i++) {
+			for(int i=0; i<map.size(); i++) {
+				
+				
 				System.out.print(i+": ");
-				System.out.println(coms.get(i));
+				System.out.println(map.get(i));
 			}
 			System.out.println("=====================");
 			System.out.println();
@@ -49,7 +56,7 @@ public class MainEx {
 			
 				int menu = sc.nextInt();
 				sc.nextLine();
-				coms.get(menu).execute(sc);
+				map.get(menu).execute(sc);
 			
 			} catch (Exception e) {
 				System.out.println("잘못된 입력입니다.");

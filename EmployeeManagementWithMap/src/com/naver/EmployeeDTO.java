@@ -1,26 +1,23 @@
 package com.naver;
 
 import java.io.Serializable;
-import java.sql.Date;
 
-public class AttendeeDTO implements Serializable {
+public class EmployeeDTO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private String id;
 	private String name;
-	private String intime;
-	private String exittime;
+	private String position;
 	
-	public AttendeeDTO() {
+	public EmployeeDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public AttendeeDTO(String id, String name, String intime, String exittime) {
+	public EmployeeDTO(String id, String name, String position) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.intime = intime;
-		this.exittime = exittime;
+		this.position = position;
 	}
 
 	public String getId() {
@@ -39,20 +36,12 @@ public class AttendeeDTO implements Serializable {
 		this.name = name;
 	}
 
-	public String getIntime() {
-		return intime;
+	public String getPosition() {
+		return position;
 	}
 
-	public void setIntime(String intime) {
-		this.intime = intime;
-	}
-
-	public String getExittime() {
-		return exittime;
-	}
-
-	public void setExittime(String exittime) {
-		this.exittime = exittime;
+	public void setPosition(String position) {
+		this.position = position;
 	}
 
 	public static long getSerialversionuid() {
@@ -75,7 +64,7 @@ public class AttendeeDTO implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AttendeeDTO other = (AttendeeDTO) obj;
+		EmployeeDTO other = (EmployeeDTO) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -86,12 +75,8 @@ public class AttendeeDTO implements Serializable {
 
 	@Override
 	public String toString() {
-		return "["+ "사원 id : " + id + " / 이름 : " + name + " / 출근시간 : " + intime +" / 퇴근시간 : "+ exittime +"]" ;
+		return "["+ "사원 id : " + id + " / 이름 : " + name + " / 직급 : " + position+ "]";
 	}
-	
-	
-	
-	
 	
 	
 
