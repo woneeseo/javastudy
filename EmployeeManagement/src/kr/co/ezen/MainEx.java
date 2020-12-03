@@ -52,8 +52,8 @@ public class MainEx {
 				coms.get(menu).execute(sc);
 			
 			} catch (Exception e) {
-				System.out.println("잘못된 입력입니다.");
-				System.out.println("시스템을 다시 실행해주세요.");
+				System.out.println("잘못된 접근입니다.");
+				System.out.println("프로그램을 다시 실행해주세요.");
 				break;
 			} 
 		}
