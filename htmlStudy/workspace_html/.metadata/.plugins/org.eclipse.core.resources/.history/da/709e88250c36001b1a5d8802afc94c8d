@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<h1>회원 가입 페이지</h1>
+
+<form action="a.html" method="post">
+	
+	<label for="id">아이디: </label>
+	<input id = "id" name="id"> <button>중복검사</button>
+	<!-- lable : 직접 input태그를 클릭하지 않아도 레이블 부분을 클릭하면 커서가 input창으로 감 -->
+	<!-- id와 label을 묶어 줄 때에는 별도의 id를 만들어서 label태그에 for를 이용해 묶어준다. -->
+	<br>
+	
+	<label for="pw1">비밀번호: </label>
+	<input id="pw1" type="password" name="pw1"> 
+	<br>
+	
+	<label for="pw2">비밀번호 확인: </label>
+	<input id="pw2" type="password" name="pw2"> 
+	<br>
+	
+	<label for="name">이름: </label>
+	<input id="name" name="name">
+	<br>
+	
+	<label for="birth">생일: </label>
+	<input id="birth" type="date" name="birth">
+	<br>
+	
+	<label for="tel">전화번호: </label>
+	<input type="tel" id="tel" name="tel">
+	<br>
+	
+	<label for="email">e-mail: </label>
+	<input type="email" id="email" name="email">
+	<br>
+	
+	<label>당신의 최종학력: </label><br>
+	<input type="radio" name="school" value="es" id="es"><label for="es">초등학교</label><br>
+	<input type="radio" name="school" value="ms" id="ms" checked><label for="ms">중학교</label><br>
+	<input type="radio" name="school" value="hs" id="hs"><label for="hs">고등학교</label><br>
+	<input type="radio" name="school" value="us" id="us"><label for="us">대학교</label><br>
+	
+	<!-- radio는 선택지중의 하나만 선택해 value를 넘겨받겠다는 의미 -->
+	<!-- 답이 하나밖에 없는 다지선다 문제라고 생각하면 됨 -->
+	<!-- 최종학력 이라는 문제에 저장될 답 name은 하나이다 -->
+	<!-- name이 갖는 값만을 다르게 설정해주면, 선택받은 value의 값이 저장되어 넘어감 -->
+	<!-- 체크박스나 라디오버튼을 구현할 때는 어느 한 보기문항에 checked 태그를 넣어준다. -->
+	<!-- 미리 체크를 해 둬서 이것이 라디오버튼이라는 것을 알려주기 위함 -->
+	
+	<br>
+	
+	
+	<input type="submit" value="가입">
+	<!-- 웹사이트에서 입력받는 모든 값은 String형으로 저장된다 -->
+	<!-- parse()를 이용해서 자료형을 변경해 이용해줄 수 있다. -->
+</form>
+
+</body>
+</html>

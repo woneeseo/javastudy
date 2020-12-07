@@ -1,0 +1,17 @@
+<!DOCTYPE html> 
+<!-- html 버전 5라는 것을 의미함 -->
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Test is test.</title>
+<!-- 제목, css설정, 메타데이터 설정, 다른 폴더에 있는 파일 가져와 사용하기 등등이 가능함 -->
+
+</head>
+<body>
+
+<!-- 웹 브라우저에 본문의 내용은 body와 body 사이에 있는 내용이 출력됨 -->
+Hello World
+Hello         World
+
+</body>
+</html>

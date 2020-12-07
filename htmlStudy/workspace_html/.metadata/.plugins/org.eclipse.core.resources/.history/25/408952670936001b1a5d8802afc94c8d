@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<h1>로그인 페이지</h1>
+<!-- 헤더태그 : 제목/소제목등을 표현할 수 있음. h1~h6까지 있으며 h1이 가장 크기가 크다. -->
+<h3>부제목을 입력하세요.</h3>
+<!-- 보통 h3이 부제목을 입력할 때 사용하는 크기임 -->
+<!-- 헤더태그는 블럭태그임 : 자동으로 줄바꿈이 일어남 -->
+
+<input placeholder="ID를 입력하세요.">
+<br>
+<h1>아무 일도 일어나지 않았습니다.</h1>
+<!-- placeholder는 입력창에 메세지를 남겨둘 수 있음 -->
+<!-- 입력 커서가 들어가면 메세지가 사라짐 -->
+<!-- 하지만 input태그는 form태그 본문 안에 있지 않으면 아무 쓸모 없음 -->
+<br>
+
+<form action="b.html">
+<!-- submit으로 넘겨주는 값을 어디로 보낼것인가? form태그의 action에서 정한다 -->
+
+	<input name="id">
+	<!-- input태그에 넘겨준 데이터를 name태그와 페어링을 해 넘겨줘야 하기 때문에 -->
+	<!-- input을 사용할 경우 반드시 name값을 줘야 한다 -->
+	<br>
+	<input type="password" name="pw">
+	<br>
+	<input type="submit" value="로그인">
+	<!-- submit : 버튼기능. 값을 넘겨줌 -->
+
+</form>
+
+<form action="b.html" method="post">
+
+<!-- 데이터 전송방식 -->
+<!-- get은 URL에 쿼리스트림을 붙여서 전송 = url을 통해 노출이 됨-->
+<!-- http://localhost:8089/HelloWorld/b.html?id=teacheryo&pw=123456 -->
+<!-- post는 전송객체의 본문(body)에 넣어서 전송 = 보안적으로 유리 -->
+<!-- http://localhost:8089/HelloWorld/b.html (쿼리스트림에 정보가 노출되지 않음) -->
+<!-- post 방식은 더 많은 정보를 가지고 있을 수 있지만 get보다 속도가 느림 -->
+<!-- get은 데이터를 넘겨주는 크기가 정해져있지만, post는 무한정 -->
+<!-- 보안성&데이터 전송량을 생각하면 get/post를 선택할 수 있음 -->
+<!-- 비교적 중요하지 않고, 데이터 전송량이 많지 않으면 get (ex.설문조사..) -->
+<!-- 중요한 내용이거나 개인적인 정보가 포함 될 경우 post를 사용 (ex.회원가입..) -->
+
+	<input name="id">
+	<br>
+	<input type="password" name="pw">
+	<!-- password를 입력받는 input창이라면 반드시 type에 password를 입력해줘야 함 -->
+	<br>
+	<input type="submit" value="로그인">
+	
+</form>
+
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!-- 헤더태그 -->
+<!-- 블락태그 -> 위/아래 자동 줄바꿈 발생 -->
+
+<h1>Hello</h1>
+<!-- h1이 제목으로 많이 쓰임 -->
+<h2>Hello</h2>
+<h3>Hello</h3>
+<!-- 부제목으로 h3이 자주 쓰임 -->
+<h4>Hello</h4>
+<h5>Hello</h5>
+<h6>Hello</h6>
+
+
+<p>
+<!-- 문단을 표기할 때 주로 <p></p>를 씀 (문장이 여러개를 이루어 문단을 이룰 때) -->
+	안녕하세요?
+	홍길동입니다.
+	<!-- <br>태그를 넣어야 줄바꿈이 일어난다. -->
+	<!-- 이클립스에서 엔터로 줄바꿔 쓴다고 하더라도 출력은 한줄로 됨 -->
+</p>
+
+<p>
+
+	다름이 아니오라
+	내일부터 쌍방향 <span style="color: red">온라인 수업</span>이 진행됨을 알려드립니다.
+	<!-- <p>태그는 일반적으로 텍스트를 넣어주고 내부에 태그가 들어가는 일이 거의 없으나 -->
+	<!-- <span></span> css에서 문장 내에서 특정한 글씨에 효과를 줄 때 사용함 -->
+</p>
+
+<div>
+	
+	<img style="width: 25%; height: 25%;" alt="4k image" src="test.jpeg"><br>
+	<p>4k image</p>
+	<!-- div는 태그를 넣어서 쓰기 위해 사용함 / 컨테이너 역할을 함 -->
+	<!-- img태그와 p태그를 한 덩어리로 쓰기 위해서 사용함 -->
+	<!-- div는 내부에 어떤 내용이 들어있는지 알 수 없음. 그래서 사용하는것이 section 태그 -->
+
+</div>
+
+<section>
+	<article>
+	<!-- section / article : 시멘틱 태그 (의미가 있는 태그명) -->
+		<i>2020년 12월 8일(화) 0시부터</i> <em>대한민국 수도와 수도권 지역</em>에 <br>
+		<mark>사회적 거리두기 2.5단계</mark>가 전격적으로 시행됩니다. <br>
+		국민 여러분의 많은 참여 부탁드립니다. <span style="color: blue">KBS 이현기 기자</span>였습니다.
+		<!-- i태그 : 이탤릭체 / em태그 : 강조하기 위해서 기울여 쓸 때(기울임체 emphasis) -->
+		<!-- 결과는 똑같지만 em태그는 시각장애인용 시스템에서 강조해서 읽어들여지는 기능을 함 -->
+		<!-- <mark> : 형광펜으로 칠한 듯 한 강조표기를 할 수 있음 -->
+	</article>
+</section>
+
+<p>I am <del>a</del> happy.</p>
+<p>This is <ins>an</ins> apple</p>
+
+<!-- del : 지워야 하는 텍스트일 때 (중간선) / ins : 반드시 있어야만 하는 텍스트일 때 (밑줄)-->
+<!-- css와 시멘틱태그 : css는 시각장애인용 스크린리더에서 제대로 인식하지 못하는 경우가 있어 -->
+<!-- 삽입, 삭제등 시멘틱태그로 사용할 수 있는 경우에는 반드시 시맨틱태그로 사용해준다. -->
+
+<p>원주율이 <strong>3.14</strong>인 것을 강조합니다.</p> <!-- 시맨틱태그 -->
+<p>그냥 <b>굵게</b> 표현하고 싶습니다.</p>
+<!-- 두가지의 실행결과는 같음. but 의미가 다르다. -->
+<!-- strong 태그를 사용해주는 것이 좋음 -->
+
+<p>WHO <sup>주)세계 보건 기구</sup>는 오늘 쉽니다.</p>
+<p>E = mc<sup>2</sup></p>
+<!-- <sup> : 주석처리하기 / 주석이 되는 텍스트가 살짝 위로 올라가게 표현됨 (ex.2의 n승 표현..)-->
+<p>H<sub>2</sub>O</p>
+<!-- <sub> : 주석처리하기 / 주석이 되는 텍스트가 살짝 아래로 내려가게 표현됨 (ex.화학식..) -->
+
+<p>그는 <q>안녕하세요</q>라고 말했다.</p>
+<!-- <q> : 문장 중에 인용구를 넣어햐 할 때 큰따옴표 대신 <q>를 쓴다. -->
+
+<p>그는 이렇게 말했다.</p>
+<blockquote>안녕하세요.</blockquote><!-- <blockquote> : 들여쓰기 기능 -->
+
+<abbr title="낄 때 끼고 빠질 때 빠진다.">낄끼빠빠</abbr>를 할 줄 알아야 한다.
+<br>
+<abbr title="스크린 샷">스샷</abbr> 조금 전에 가르쳐 주었습니다.
+<!-- <abbr> : 단축칸/축약칸. 이 단어가 단축어/축약어/약어 임을 나타내주는 태그 -->
+<!-- title속성을 이용해 어떤 이야기를 단축한 것인지 표현해 줄 수 있음 -->
+
+<p>hello</p>
+<p><bdo dir="rtl">hello</bdo></p>
+<!-- <bdo> 의 dir 속성을 이용하면 오른쪽-왼쪽으로 문자열을 표현할 수 있음 -->
+<!-- dir=ltr(left to right) : 왼쪽에서 오른쪽으로 텍스트 읽기 -->
+<!-- dir=rtl(right to left) : 오른쪽에서 왼쪽으로 텍스트 읽기 (ex.아랍어) -->
+
+<a href="https://www.nate.com">
+<img alt="4k image" src="test.jpeg" style="width: 50%; height: 50%;">
+</a>
+<!-- 이미지 파일에 하이퍼링크 달기 : img태그를 a태그로 감싸기 -->
+
+<!-- area를 지정해 해당 area를 클릭하면 각각 다른 페이지로 넘어가도록 하이퍼링크 다는 방법 -->
+<!-- map 과 area 태그를 이용한다. -->
+
+<img alt="4k image" src="test.jpeg" style="width: 200px; height: 200px;" usemap="#myMap">
+<!-- img 태그의 usemap 속성을 사용해 id태그를 걸어주고 -->
+<map name="myMap">
+<!-- map에서 name(=id)을 usemap에서 걸었던 태그 명과 동일하게 해준 뒤 -->
+<!-- area 태그를 감싸준다 -->
+
+	<area alt="이미지의 왼쪽" shape="rect" coords="0, 0, 100, 100" href="https://www.google.com">
+	<area alt="이미지의 오른쪽" shape="rect" coords="101, 101, 200, 200" href="https://www.naver.com">
+	<!-- area태그는 이미지의 크기만 알면 coords 속성을 이용해 어디든지 지정할 수 있고 -->
+	<!-- shape를 통해 원형, 직사각형, 다각형등의 형태로 모양을 줄 수도 있음/ 링크는 href속성으로 걸어준다.-->
+
+</map>
+
+
+<table border="1">
+<!-- table : 표! -->
+	<thead>
+	<!-- thead에서 테이블의 컬럼값을 지정해 줄 수 있음 -->
+		<tr>
+		<!-- 테이블 행 -->
+			<th>아이디</th>
+			<!-- td : 테이블 컬럼 -->
+			<th>이름</th>
+			<th>직업</th>
+		</tr>
+	</thead>
+	
+	<tbody>
+	<!-- 실제 데이터가 들어가는 부분 : <tbody></tbody> -->
+	<!-- 컬럼값이 3개면 레코드도 3개여야 함 -->
+		<tr>
+			<td>m001</td>
+			<td>kim</td>
+			<td colspan="2">a</td>
+			<!-- colspan(세로) : 다른 row가 가진 컬럼의 값이 연달아 같은 값을 가질 때 통합할 수 있는 속성 -->
+		</tr>
+		<tr>
+			<td>m002</td>
+			<td>lee</td>
+			<!-- colspan에 병합할 row값은 지워준다 -->
+		</tr>
+		<tr>
+			<td>m003</td>
+			<td>park</td>
+			<td>b</td>
+		</tr>
+		<tr>
+			<td>m004</td>
+			<td rowspan="2"></td>
+			<!-- rowspan(가로) : 같은 row의 다른 컬럼의 값이 같은 값을 가질 때 통합할 수 있는 속성 -->
+			<!-- rowspan에 병합할 컬럼값은 지워준다 -->
+		</tr>
+		
+	
+	</tbody>
+
+</table>
+
+
+
+<hr>
+<hr>
+<!-- 웹 페이지에 가로줄 넣기 : horizontal tag -->
+<!-- 보통 css에서 div에서 아랫줄만 표시 해 가로줄 넣는 것이 일반적임 -->
+
+
+
+
+</body>
+</html>

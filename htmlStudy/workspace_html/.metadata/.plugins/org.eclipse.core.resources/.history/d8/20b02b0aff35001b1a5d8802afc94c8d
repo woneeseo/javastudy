@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<h1>회원 가입 페이지</h1>
+
+<form action="a.html" method="post">
+	
+	<label for="id">아이디: </label>
+	<input id = "id" name="id"> <br> <button>중복검사</button>
+	<!-- lable : 직접 input태그를 클릭하지 않아도 레이블 부분을 클릭하면 커서가 input창으로 감 -->
+	<!-- id와 label을 묶어 줄 때에는 별도의 id를 만들어서 label태그에 for를 이용해 묶어준다. -->
+	<br>
+	<input type="submit" value="가입">
+	
+</form>
+
+</body>
+</html>
